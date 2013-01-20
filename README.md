@@ -1,4 +1,6 @@
-spin
+Spin
 ====
 
-Spinsetter
+Spinsetter platform - *Simple* music discovery.
+
+This repository contains the Meteor project and associated configuration files.
