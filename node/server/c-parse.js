@@ -13,8 +13,7 @@ var parseTrack = /\/([0-9]+)/;
 // Add track to db
 function addTrack (trackID)
 {
-    var track = {id: parseInt(trackID),
-                 date: new Date()};
+    var track = {id: trackID};
     db.save('tracks', trackID, track);
 }
 
@@ -53,10 +52,33 @@ function processFeed (article)
 }
 
 // Read feed into database
-exports.importFeed = function (url)
+exports.importFeed = function (url, io)
 {
+    // Listen for added track and notify iface
+    db.registerListener({
+        "riak.request.end": function(event) {
+            if (event.method.toUpperCase() == 'PUT')
+            {
+                db.getAll('tracks', function (err, tracks, meta)
+                    {
+                        if(err) throw err;
+                        io.sockets.on('connection', function (socket)
+                        {
+                            var trackList = new Array();
+                            tracks.forEach(function (track, i, arr)
+                                           {
+                                               trackList.push(track.id);
+                                           }
+                                          );
+
+                            socket.emit('tracks', trackList);
+                        });
+                    });
+            }
+        }
+    });
+
     feedUrl = decodeURIComponent(url);
     feedparser.parseUrl(feedUrl)
             .on('article', processFeed);
-}
-
+};
