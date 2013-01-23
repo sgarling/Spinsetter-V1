@@ -6,14 +6,6 @@ var url = require('url');
 
 // Database
 var db = require('riak-js').getClient();
-/*
-var instrument = {
-  'riak.request.start': function(event) {
-    console.log('[riak-js] ' + event.method.toUpperCase() + ' ' + event.path);
-  }
-}
-db.registerListener(instrument);
-*/
 
 // Regular expressions
 var parseTrack = /\/([0-9]+)/;
@@ -60,7 +52,11 @@ function processFeed (article)
     });
 }
 
-// Main
-feedUrl = decodeURIComponent(process.argv[2]);
-feedparser.parseUrl(feedUrl)
-        .on('article', processFeed);
+// Read feed into database
+exports.importFeed = function (url)
+{
+    feedUrl = decodeURIComponent(url);
+    feedparser.parseUrl(feedUrl)
+            .on('article', processFeed);
+}
+
