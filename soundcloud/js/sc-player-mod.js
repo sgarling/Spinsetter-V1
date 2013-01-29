@@ -10,42 +10,6 @@
 *   The link will be automatically replaced by the HTML based player
 */
 (function($) {
-
-  //Given a soundcloud link, extracts the artist's (user account's) name.
-  var extractArtistName = function(url) {
-    var checkUrl = "";
-    var artist = ""
-    for (var i = 0; i < url.length; i++) {
-      if (checkUrl === "https://soundcloud.com/" || checkUrl === "http://soundcloud.com/") { 
-        if (url[i] === "/") { 
-          break; 
-        } else if (url[i] == "-" || url[i] == "_") {
-          artist += " ";
-        } else {
-          artist += url[i];
-        }
-      } else {
-        checkUrl += url[i];
-      }
-    }
-    console.log(checkUrl);
-    console.log(artist);
-    return artist;
-    /*
-      var re1='.*?';  // Non-greedy match on filler
-      var re2='(?:[a-z][a-z]+)';  // Uninteresting: word
-      var re3='.*?';  // Non-greedy match on filler
-      var re4='(?:[a-z][a-z]+)';  // Uninteresting: word
-      var re5='.*?';  // Non-greedy match on filler
-      var re6='(?:[a-z][a-z]+)';  // Uninteresting: word
-      var re7='.*?';  // Non-greedy match on filler
-      var re8='((?:[a-z][a-z]+))';  // Word 1
-
-      var p = new RegExp(re1+re2+re3+re4+re5+re6+re7+re8,["i"]);
-      var artist = p.exec(url)[1];
-      return artist; */
-  };
-
   // Convert milliseconds into Hours (h), Minutes (m), and Seconds (s)
   var timecode = function(ms) {
     var hms = function(ms) {
@@ -557,9 +521,8 @@
           // create the playlist
           $.each(tracks, function(index, track) {
             var active = index === 0;
-            var artist = extractArtistName(track.permalink_url);
             // create an item in the playlist
-            $('<li><a href="' + track.permalink_url +'">' + track.title + '</a><span class="sc-track-duration">' + timecode(track.duration) + '</span></li>').data('sc-track', {artist:artist, id:index, title:track.title}).toggleClass('active', active).appendTo($list);
+            $('<li><a href="' + track.permalink_url +'">' + track.title + '</a><span class="sc-track-duration">' + timecode(track.duration) + '</span></li>').data('sc-track', {artist:track.user.username, id:index, title:track.title}).toggleClass('active', active).appendTo($list);
             // create an item in the artwork list
             $('<li></li>')
               .append(artworkImage(track, index >= opts.loadArtworks))
