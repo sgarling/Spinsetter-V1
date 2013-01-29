@@ -13,6 +13,25 @@
 
   //Given a soundcloud link, extracts the artist's (user account's) name.
   var extractArtistName = function(url) {
+    var checkUrl = "";
+    var artist = ""
+    for (var i = 0; i < url.length; i++) {
+      if (checkUrl === "https://soundcloud.com/" || checkUrl === "http://soundcloud.com/") { 
+        if (url[i] === "/") { 
+          break; 
+        } else if (url[i] == "-" || url[i] == "_") {
+          artist += " ";
+        } else {
+          artist += url[i];
+        }
+      } else {
+        checkUrl += url[i];
+      }
+    }
+    console.log(checkUrl);
+    console.log(artist);
+    return artist;
+    /*
       var re1='.*?';  // Non-greedy match on filler
       var re2='(?:[a-z][a-z]+)';  // Uninteresting: word
       var re3='.*?';  // Non-greedy match on filler
@@ -24,7 +43,7 @@
 
       var p = new RegExp(re1+re2+re3+re4+re5+re6+re7+re8,["i"]);
       var artist = p.exec(url)[1];
-      return artist;
+      return artist; */
   };
 
   // Convert milliseconds into Hours (h), Minutes (m), and Seconds (s)
@@ -445,7 +464,6 @@
         soundVolume = vol;
         document.cookie = ['scPlayer_volume=', vol, '; expires=', date.toUTCString(), '; path="/"'].join('');
         // update the volume in the engine
-        console.log("New Volume:" + volume);
         audioEngine.setVolume(soundVolume);
       },
       positionPoll;
@@ -682,7 +700,6 @@
         trackId = $track.data('sc-track').id,
         play = $player.is(':not(.playing)') || $track.is(':not(.active)');
     if (play) {
-      console.log($track.data('sc-track').title);
       $('.sc-track-info').empty();
       $('.sc-track-info').append($track.data('sc-track').artist + ": " + $track.data('sc-track').title);
       onPlay($player, trackId);
@@ -737,7 +754,6 @@
 
   //Key Bindings
   $(document).keydown(function(e) {
-    console.log(e.keyCode);
     if (e.keyCode === 39) { $('a.sc-next').click(); }
     if (e.keyCode === 37) { $('a.sc-prev').click(); }
     if (e.keyCode === 32) { $('a.sc-play').click() }
