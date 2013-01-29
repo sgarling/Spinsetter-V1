@@ -10,6 +10,23 @@
 *   The link will be automatically replaced by the HTML based player
 */
 (function($) {
+
+  //Given a soundcloud link, extracts the artist's (user account's) name.
+  var extractArtistName = function(url) {
+      var re1='.*?';  // Non-greedy match on filler
+      var re2='(?:[a-z][a-z]+)';  // Uninteresting: word
+      var re3='.*?';  // Non-greedy match on filler
+      var re4='(?:[a-z][a-z]+)';  // Uninteresting: word
+      var re5='.*?';  // Non-greedy match on filler
+      var re6='(?:[a-z][a-z]+)';  // Uninteresting: word
+      var re7='.*?';  // Non-greedy match on filler
+      var re8='((?:[a-z][a-z]+))';  // Word 1
+
+      var p = new RegExp(re1+re2+re3+re4+re5+re6+re7+re8,["i"]);
+      var artist = p.exec(url)[1];
+      return artist;
+  };
+
   // Convert milliseconds into Hours (h), Minutes (m), and Seconds (s)
   var timecode = function(ms) {
     var hms = function(ms) {
@@ -490,7 +507,9 @@
         $artworks = $('<ol class="sc-artwork-list"></ol>').appendTo($player),
         $info = $('<div class="sc-info"><h3></h3><h4></h4><p></p><a href="#" class="sc-info-close">X</a></div>').appendTo($player),
         $controls = $('<div class="sc-controls"></div>').appendTo($player),
+        $trackinfo = $('<div class="sc-track-info"></div>').appendTo($player),
         $list = $('<ol class="sc-trackslist"></ol>').appendTo($player);
+        
 
         // add the classes of the source node to the player itself
         // the players can be indvidually styled this way
@@ -508,8 +527,6 @@
           .append('<div class="sc-volume-slider"><span class="sc-volume-status" style="width:' + soundVolume +'%"></span></div>')
           .append('<div class="sc-time-indicators"><span class="sc-position"></span> | <span class="sc-duration"></span></div>');
 
-        //making first first track marker
-        //$list.append('<div class="first-track"></div>');
         // load and parse the track data from SoundCloud API
         loadTracksData($player, links, opts.apiKey);
         // init the player GUI, when the tracks data was laoded
@@ -522,8 +539,9 @@
           // create the playlist
           $.each(tracks, function(index, track) {
             var active = index === 0;
+            var artist = extractArtistName(track.permalink_url);
             // create an item in the playlist
-            $('<li><a href="' + track.permalink_url +'">' + track.title + '</a><span class="sc-track-duration">' + timecode(track.duration) + '</span></li>').data('sc-track', {id:index}).toggleClass('active', active).appendTo($list);
+            $('<li><a href="' + track.permalink_url +'">' + track.title + '</a><span class="sc-track-duration">' + timecode(track.duration) + '</span></li>').data('sc-track', {artist:artist, id:index, title:track.title}).toggleClass('active', active).appendTo($list);
             // create an item in the artwork list
             $('<li></li>')
               .append(artworkImage(track, index >= opts.loadArtworks))
@@ -531,9 +549,6 @@
               .toggleClass('active', active)
               .data('sc-track', track);
           });
-
-          //last track marker
-          //$list.append('<p class="last-track"></p>');
 
           // update the element before rendering it in the DOM
           $player.each(function() {
@@ -561,6 +576,9 @@
 
           // if auto play is enabled and it's the first player, start playing
           if(opts.autoPlay && !didAutoPlay){
+            var title = $('ol.sc-trackslist').children().filter(':first').data('sc-track').title;
+            var artist = $('ol.sc-trackslist').children().filter(':first').data('sc-track').artist;
+            $('.sc-track-info').append(artist + ": " + title);
             onPlay($player);
             didAutoPlay = true;
           }
@@ -660,10 +678,13 @@
   // selecting tracks in the playlist
   $('.sc-trackslist li').live('click', function(event) {
     var $track = $(this),
-        $player = $track.closest('.sc-player'),
+        $player = $track.closest('.sc-player'), 
         trackId = $track.data('sc-track').id,
         play = $player.is(':not(.playing)') || $track.is(':not(.active)');
     if (play) {
+      console.log($track.data('sc-track').title);
+      $('.sc-track-info').empty();
+      $('.sc-track-info').append($track.data('sc-track').artist + ": " + $track.data('sc-track').title);
       onPlay($player, trackId);
     }else{
       onPause($player);

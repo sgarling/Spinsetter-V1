@@ -140,6 +140,12 @@
 
 /* Track info*/
 
+.sc-player .sc-track-info {
+  position: absolute;
+  top: 375px;
+  left: 50px;
+}
+
 .sc-player .sc-info{
   background: #333;
   opacity: 0.9;
