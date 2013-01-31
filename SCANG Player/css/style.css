@@ -1,0 +1,10 @@
+.song-progress-wrapper {
+	width: 200px;
+	height:20px;
+	background:black;
+}
+
+.song-progress {
+	height:17px;
+	background:blue;
+}
