@@ -33,7 +33,7 @@ function PlayerCtrl($scope) {
             audio.play({
               whileplaying: function() {
                 $scope.$apply(function() {
-                  $scope.currentPos = (audio.position / audio.duration) * 200;
+                  $scope.currentPos = (audio.position / audio.duration) * 200;  
                 });
               }
             });
