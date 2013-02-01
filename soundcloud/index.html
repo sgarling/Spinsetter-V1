@@ -1,16 +1,32 @@
-<!DOCTYPE html>
-<html lang="en>
-<head>
-<title>Souncloud Custom Fun </title>
-<meta charset="utf-8">
-<link rel="stylesheet" href="css/sc-player-standard.css" type="text/css">
-
-<script src="js/jquery-1.8.2.min.js"></script>
-<script type="text/javascript" src="js/soundcloud.player.api.js"></script>
-<script type="text/javascript" src="js/sc-player-mod.js"></script>
-</head>
-
-<body>
-<a href="https://soundcloud.com/bun_snipaz" class="sc-player">My latest tracks</a>
-
-</body>
+<!doctype html>
+<html ng-app>
+  <head>
+    <script src="js/jquery-1.8.2.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.4/angular.min.js"></script>
+    <script src="//connect.soundcloud.com/sdk.js"></script>
+    <script type="text/javascript" src="js/c-player.js"></script>
+    <script type="text/javascript" src="js/underscore.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+  </head>
+  <body>
+    <div ng-controller="PlayerCtrl">
+      <h2>Custom Player by Danny</h2>
+      <div class="track-info">
+        <div class="track-username"><h3>{{currentSound.username}}</h3></div>
+        <div class="track-title"><h4>{{currentSound.title}}</h4>
+        <div class="track-artwork"><img src="{{currentSound.artworkURL}}"></div>
+      </div>
+      <br>
+      <div>{{currentPos}} <-- Audio Position</div>
+      <div ng-click="play()">Play</div>
+      <div ng-click="pause()">Pause</div>
+      <div ng-click="ffwd()">FFW(Needs click + hold functionality)</div>
+      <div ng-click="rewind()">Rewind("")</div>
+      <div ng-click="skipFwd()">Skip Fwd</div>
+      <div ng-click="skipBack()">Skip Back</div>
+      <div class="song-progress-wrapper">
+        <div class="song-progress" style="width: {{currentPos}}px"></div>
+      </div>
+    </div>
+  </body>
+</html>
