@@ -1,0 +1,10 @@
+<hr />
+<h1>{{profile.username}}</h1>
+<div ng-click="pause()">Pause</div>
+<ul ui:sortable ng-model="tracks">
+	<li class="song-card" ng-repeat="track in tracks">
+		<div class="song-title">{{track.title}}</div>
+		<div class="song-artist">{{track.user.username}}</div>
+		<div class="song-artwork"><img ng-click="playFromCard(track)" ng-src="{{track.artwork_url}}"></div>
+	</li>
+	</ul>
