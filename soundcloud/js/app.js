@@ -23,6 +23,10 @@ myModule.service('profileInfo', function($rootScope, $q) {
     {username: "Danny", trackURLs: ["/tracks/74494996", "/tracks/294", "/tracks/75868018", "/tracks/74421378"] },
     {username: "Beezy", trackURLs: ["/tracks/75237140", "/tracks/74913382", "/tracks/74432728"] }];
 
+  function getEnlargedArtwork(artwork_url) {
+    return artwork_url.replace("large", "t500x500");
+  }
+
   return {
     getProfiles: function() {
       return profiles;
@@ -34,18 +38,13 @@ myModule.service('profileInfo', function($rootScope, $q) {
       return profile;
     },
     getTracks: function(profile) {
-      var promises = _.map(profile.trackURLs, function(trackURL) {
-        var deferred = $q.defer();
+      _.each(profile.trackURLs, function(trackURL) {
         SC.get(trackURL, function(track) {
           $rootScope.$apply(function() {
-            deferred.resolve(track);
+           //track.artwork_url = getEnlargedArtwork(track.artwork_url); (grabs enlarged artwork URL)
+            $rootScope.$broadcast('trackReturned', track);
           });
         });
-        return deferred.promise;
-      });
-
-      return $q.all(promises).then(function(tracks) {
-        return tracks;
       });
     }
   };
@@ -65,10 +64,31 @@ myModule.service('playerService', function($rootScope) {
 
 
   //Event logic
-  $rootScope.$on('profileChange', function(event, tracks){
-    trackList = tracks;
+  $rootScope.$on('profileChange', function() {
+    trackList = [];
+    trackIndex = -1;
+  });
+  /* 
+   * The events 'trackCreated' and 'trackDeleted' are trigger when the player cards are dragged and
+   * dropped. This updates the player so that the player will play the tracks in the new order.
+   */
+  $rootScope.$on('trackCreated', function(event, track, index) {
+    trackList.splice(index, 0, track);
+    if (track === currentTrack) {
+      trackIndex = index;
+      console.log("playing track now at index " + trackIndex);
+    }
   });
 
+  $rootScope.$on('trackRemoved', function(event, track, index) {
+    trackList.splice(index, 1);
+    console.log("track removed");
+  });
+
+  /*
+   * This click listener allows the user to click on the song progress bar to
+   * change the position in the current playing track.
+   */
   $(document).on('click', '.song-progress-wrapper', function(e) {
     var pos = e.pageX - $(this).offset().left;
     var relPos = currentSound.duration*pos;
@@ -81,31 +101,18 @@ myModule.service('playerService', function($rootScope) {
   var trackIndex = 0;
   var playing = false;
 
-  var trackList = null;
+  var trackList = [];
   var currentTrack = null;
   var currentSound = null;
   var currentPos = 0;
 
   return {
-    //Getters & Setters
-    getCurrentTrack: function() {
-      return currentTrack;
-    },
-
-    getCurrentSound: function() {
-      return currentSound;
-    },
-
-    setCurrentSound: function(sound) {
-      currentSound = sound;
-    },
-
     //Player Control Logic
     playFromPlayer: function() {
       if (currentSound === null) {
-        SC.stream("/tracks/" + trackList.$$v[0].id, function(audio) {
+        SC.stream("/tracks/" + trackList[0].id, function(audio) {
           currentSound = audio;
-          currentTrack = trackList.$$v[0];
+          currentTrack = trackList[0];
           audio.play({
             onplay: function() {
               $rootScope.safeApply(function() {
@@ -117,7 +124,6 @@ myModule.service('playerService', function($rootScope) {
                 $rootScope.currentPos = (audio.position / audio.duration) * 200;
                 if ($rootScope.currentPos == 200) { $rootScope.$broadcast('trackFinished'); }
               });
-              //if (currentPos == 200) { skipFwd(); }
             }
           });
         });
@@ -194,8 +200,8 @@ myModule.service('playerService', function($rootScope) {
         currentSound.stop();
         playing = false;
         trackIndex++;
-        if (trackIndex >= trackList.$$v.length) { trackIndex = 0; }
-        var track = trackList.$$v[trackIndex];
+        if (trackIndex >= trackList.length) { trackIndex = 0; }
+        var track = trackList[trackIndex];
         this.playPauseTrack(track, trackIndex);
       }
     },
@@ -204,8 +210,8 @@ myModule.service('playerService', function($rootScope) {
         currentSound.stop();
         playing = false;
         trackIndex--;
-        if (trackIndex === -1) { trackIndex = trackList.$$v.length - 1; }
-        var track = trackList.$$v[trackIndex];
+        if (trackIndex === -1) { trackIndex = trackList.length - 1; }
+        var track = trackList[trackIndex];
         this.playPauseTrack(track, trackIndex);
       }
     }

@@ -4,18 +4,10 @@
 
 myModule.controller('PlayerCtrl', ['$scope', 'profileInfo', 'playerService', function($scope, profileInfo, playerService) {
 
-  var autoPlay = false;
-  var playingIndex = 0;
-  var playing = false;
-
-  //Controller Variables
-  $scope.trackURLs = profileInfo.getProfiles()[0].trackURLs;
-  //could add is prev song for audio "memory"
-
   //ng-click Player Control functions
    $scope.play = function() {
     playerService.playFromPlayer();
-  }
+  };
 
   $scope.pause = function() {
     playerService.pause();
@@ -23,21 +15,26 @@ myModule.controller('PlayerCtrl', ['$scope', 'profileInfo', 'playerService', fun
 
   $scope.ffwd = function() {
     playerService.ffwd();
-  }
+  };
 
   $scope.rewind = function() {
     playerService.rewind();
-  }
+  };
 
   $scope.skipFwd = function() {
     playerService.skipFwd();
-  }
+  };
 
   $scope.skipBack = function() {
     playerService.skipBack();
-  }
+  };
 
   //Event logic
+  
+  /*
+   * The 'newTrackPlayed' event updates $scope.currentTrack so that the
+   * UI updates correctly on a song change.
+   */
   $scope.$on('newTrackPlayed', function(event, track, sound) {
     console.log("new track played!");
     $scope.currentTrack = track;
@@ -47,9 +44,4 @@ myModule.controller('PlayerCtrl', ['$scope', 'profileInfo', 'playerService', fun
     console.log("track finished!");
     playerService.skipFwd();
   });
-
-  //Startup logic
-  if (autoPlay) {
-    $scope.play();
-    }
 }]);  
