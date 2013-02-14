@@ -21,7 +21,8 @@ myModule.service('profileInfo', function($rootScope, $q) {
   //if these containedd soundcloud track objects instead of trackURLs the player mechanism could be simplified
   var profiles = [
     {username: "Danny", trackURLs: ["/tracks/74494996", "/tracks/294", "/tracks/75868018", "/tracks/74421378"] },
-    {username: "Beezy", trackURLs: ["/tracks/75237140", "/tracks/74913382", "/tracks/74432728"] }];
+    {username: "Josh", trackURLs: ["/tracks/75237140", "/tracks/74913382", "/tracks/74432728"] },
+    {username: "Samora", trackURLs:["/tracks/74494996", "/tracks/294", "/tracks/75868018", "/tracks/74421378", "/tracks/75237140", "/tracks/74913382", "/tracks/74432728"]}];
 
   function getEnlargedArtwork(artwork_url) {
     return artwork_url.replace("large", "t500x500");
@@ -40,6 +41,7 @@ myModule.service('profileInfo', function($rootScope, $q) {
     getTracks: function(profile) {
       _.each(profile.trackURLs, function(trackURL) {
         SC.get(trackURL, function(track) {
+          track.playIconState = "play";
           $rootScope.$apply(function() {
            //track.artwork_url = getEnlargedArtwork(track.artwork_url); (grabs enlarged artwork URL)
             $rootScope.$broadcast('trackReturned', track);
@@ -61,8 +63,6 @@ myModule.service('playerService', function($rootScope) {
     else { this.$apply(fn); } 
   };
 
-
-
   //Event logic
   $rootScope.$on('profileChange', function() {
     trackList = [];
@@ -76,6 +76,9 @@ myModule.service('playerService', function($rootScope) {
     trackList.splice(index, 0, track);
     if (track === currentTrack) {
       trackIndex = index;
+      console.log("playing track now at index " + trackIndex);
+    } else {
+      trackIndex = _.indexOf(trackList, currentTrack);
       console.log("playing track now at index " + trackIndex);
     }
   });
@@ -96,6 +99,8 @@ myModule.service('playerService', function($rootScope) {
     currentSound.setPosition(newPos);
   });
 
+  $rootScope.currentPos = 0;
+
   //Player Logic
   var autoPlay = false;
   var trackIndex = 0;
@@ -107,12 +112,19 @@ myModule.service('playerService', function($rootScope) {
   var currentPos = 0;
 
   return {
+    //Getters
+    getCurrentTrack: function() {
+      return currentTrack;
+    },
+
     //Player Control Logic
     playFromPlayer: function() {
       if (currentSound === null) {
         SC.stream("/tracks/" + trackList[0].id, function(audio) {
           currentSound = audio;
           currentTrack = trackList[0];
+          currentTrack.playIconState = "pause";
+          trackIndex = 0;
           audio.play({
             onplay: function() {
               $rootScope.safeApply(function() {
@@ -198,20 +210,24 @@ myModule.service('playerService', function($rootScope) {
     skipFwd: function() {
       if (currentSound) {
         currentSound.stop();
+        currentTrack.playIconState = "play";
         playing = false;
         trackIndex++;
         if (trackIndex >= trackList.length) { trackIndex = 0; }
         var track = trackList[trackIndex];
+        track.playIconState = "pause";
         this.playPauseTrack(track, trackIndex);
       }
     },
     skipBack: function() {
       if (currentSound) {
         currentSound.stop();
+        currentTrack.playIconState = "play";
         playing = false;
         trackIndex--;
         if (trackIndex === -1) { trackIndex = trackList.length - 1; }
         var track = trackList[trackIndex];
+        track.playIconState = "pause";
         this.playPauseTrack(track, trackIndex);
       }
     }

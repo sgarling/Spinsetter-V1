@@ -11,6 +11,8 @@ myModule.controller('ProfileCtrl', ['$scope', '$routeParams', 'profileInfo', 'pl
 
   $scope.profile = profileInfo.getProfile($routeParams.username);
   $scope.tracks = [];
+  //$scope.playIconState = "play";
+  
   profileInfo.getTracks($scope.profile);
 
   /*
@@ -29,6 +31,10 @@ myModule.controller('ProfileCtrl', ['$scope', '$routeParams', 'profileInfo', 'pl
 
   $scope.playFromCard = function(track) {
     var trackIndex = _.indexOf($scope.profile.trackURLs, "/tracks/" + track.id);
+    var oldTrack = playerService.getCurrentTrack();
+    if (track !== oldTrack && oldTrack !== null) { oldTrack.playIconState = "play"; }
+    if (track.playIconState === "play") { track.playIconState = "pause"; }
+    else { track.playIconState = "play"; }
     playerService.playPauseTrack(track, trackIndex);
   };
 
@@ -44,6 +50,9 @@ myModule.controller('ProfileCtrl', ['$scope', '$routeParams', 'profileInfo', 'pl
   $scope.$on('trackReturned', function(event, track) {
     $scope.tracks.push(track);
   });
+
+  //Options
+  $scope.sortableOptions = { handle: '.card-handle'};
 
 }]);
 

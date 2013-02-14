@@ -4,6 +4,9 @@
 
 myModule.controller('PlayerCtrl', ['$scope', 'profileInfo', 'playerService', function($scope, profileInfo, playerService) {
 
+  //init scope variables
+  $scope.currentTrack = { artwork_url: '../img/default-player-artwork.png' };
+
   //ng-click Player Control functions
    $scope.play = function() {
     playerService.playFromPlayer();
