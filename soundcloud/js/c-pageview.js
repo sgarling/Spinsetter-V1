@@ -56,7 +56,6 @@ myModule.controller('ProfileCtrl', ['$scope', '$routeParams', 'profileInfo', 'pl
     console.log("track at index " + trackIndex + "deleted");
     $scope.profile.trackIDs.splice(trackIndex, 1);
     $scope.tracks.splice(trackIndex, 1);
-    $scope.$emit('cardDeleted', trackIndex);
   };
 
   //Event Logic

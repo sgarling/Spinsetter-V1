@@ -29,7 +29,7 @@ var myModule = angular.module('ddPlayer', ['ui'], function($routeProvider, $loca
  * The profileInfo service contains the profile information that needs
  * to be persistent across multiple controllers.
  */
-myModule.service('profileInfo', function($rootScope, $q) 
+myModule.factory('profileInfo', function($rootScope) 
 {
   //profile / track data grabbed from here
   var profiles = [
@@ -77,7 +77,7 @@ myModule.service('profileInfo', function($rootScope, $q)
 
 
 
-myModule.service('playerService', function($rootScope) 
+myModule.factory('playerService', function($rootScope) 
 {
 
   //Use this function instead of apply in order to safely update DOM when switching between tracks. See: https://coderwall.com/p/ngisma
@@ -130,7 +130,7 @@ myModule.service('playerService', function($rootScope)
    * This click listener allows the user to click on the song progress bar to
    * change the position in the currently playing track.
    */
-  $(document).on('click', '.song-progress-wrapper', function(e) 
+  $(document).('click', '.song-progress-wrapper', function(e) 
   {
     var pos = e.pageX - $(this).offset().left;
     var relPos = currentSound.duration*pos;
