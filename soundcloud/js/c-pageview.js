@@ -1,17 +1,25 @@
+/*
+ * Controller wrapper for the ng-view div. Not totally sure why is necessary at this point,
+ * but Angular ng-view example uses a controller basically identical to this 
+ * (see script.js file at http://docs.angularjs.org/api/ng.directive:ngView)
+ */
 myModule.controller('PageViewCtrl', ['$scope', '$route', '$routeParams', '$location', 'profileInfo', function($scope, $route, $routeParams, $location, profileInfo) {
   $scope.$route = $route;
   $scope.$location = $location;
   $scope.$routeParams = $routeParams;
   $scope.profiles = profileInfo.getProfiles();
 }]);
- 
+
+/*
+ * Controller for individual profile pages. Contains all information necessary to
+ * correctly display and update a profile page.
+ */
 myModule.controller('ProfileCtrl', ['$scope', '$routeParams', 'profileInfo', 'playerService', function($scope, $routeParams, profileInfo, playerService) {
 
   $scope.$emit('profileChange');
 
   $scope.profile = profileInfo.getProfile($routeParams.username);
   $scope.tracks = [];
-  //$scope.playIconState = "play";
   
   profileInfo.getTracks($scope.profile);
 
@@ -27,8 +35,7 @@ myModule.controller('ProfileCtrl', ['$scope', '$routeParams', 'profileInfo', 'pl
     $scope.$emit('trackRemoved', track, index);
   });
 
-  //ng-click functions
-
+  
   $scope.playFromCard = function(track) {
     var trackIndex = _.indexOf($scope.profile.trackURLs, "/tracks/" + track.id);
     var oldTrack = playerService.getCurrentTrack();
@@ -46,12 +53,20 @@ myModule.controller('ProfileCtrl', ['$scope', '$routeParams', 'profileInfo', 'pl
   };
 
   //Event Logic
-
+  /*
+   * Callback for 'trackReturned' event
+   * -----------------------------------
+   * Pushes a soundcloud track object onto the tracks array so the UI
+   * correctly updates when the profile loads
+   */
   $scope.$on('trackReturned', function(event, track) {
     $scope.tracks.push(track);
   });
 
-  //Options
+  /*
+   * Sets the options for the ui:sortable (the list of song cards) so that the
+   * dragged by the .card-handle div.
+   */
   $scope.sortableOptions = { handle: '.card-handle'};
 
 }]);

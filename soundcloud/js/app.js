@@ -3,6 +3,11 @@ SC.initialize({
   client_id: "78bfc6a742a617082972ddc5ef20df2a",
 });
 
+/*
+ * Initialize Angular application and set up the routing service for the
+ * ng-view div. The routing service controls what view is displayed depending
+ * on the route path.
+ */
 var myModule = angular.module('ddPlayer', ['ui'], function($routeProvider, $locationProvider) {
   $routeProvider.when('/', {
     templateUrl: '../home.html',
@@ -16,14 +21,18 @@ var myModule = angular.module('ddPlayer', ['ui'], function($routeProvider, $loca
   $locationProvider.html5Mode(true);
 });
 
+/*
+ * The profileInfo service contains the profile information that needs
+ * to be persistent across multiple controllers.
+ */
 myModule.service('profileInfo', function($rootScope, $q) {
-  //profile /track data grabbed from here
-  //if these containedd soundcloud track objects instead of trackURLs the player mechanism could be simplified
+  //profile / track data grabbed from here
   var profiles = [
     {username: "Danny", trackURLs: ["/tracks/74494996", "/tracks/294", "/tracks/75868018", "/tracks/74421378"] },
     {username: "Josh", trackURLs: ["/tracks/75237140", "/tracks/74913382", "/tracks/74432728"] },
     {username: "Samora", trackURLs:["/tracks/74494996", "/tracks/294", "/tracks/75868018", "/tracks/74421378", "/tracks/75237140", "/tracks/74913382", "/tracks/74432728"]}];
 
+  //replaces 100x100px soundcloud artwork url with the 500x500px artwork url
   function getEnlargedArtwork(artwork_url) {
     return artwork_url.replace("large", "t500x500");
   }
@@ -38,6 +47,7 @@ myModule.service('profileInfo', function($rootScope, $q) {
       });
       return profile;
     },
+    //Returns an array of Soundcloud 'track' objects that correspond to the track urls in the 'profiles' object
     getTracks: function(profile) {
       _.each(profile.trackURLs, function(trackURL) {
         SC.get(trackURL, function(track) {
@@ -64,10 +74,19 @@ myModule.service('playerService', function($rootScope) {
   };
 
   //Event logic
+  /* 
+   * Callback for 'profileChange' event
+   * -----------------------------------
+   * Resets the track list so the correct tracks are displayed on each profile.
+   * Also sets the trackIndex to -1 so if the user clicks skipFwd on the player
+   * after switching to a new profile that it skips to the first track in the new profile,
+   * or if the user clicks skipBack it skips to the last track in the new profile.
+   */
   $rootScope.$on('profileChange', function() {
     trackList = [];
     trackIndex = -1;
   });
+
   /* 
    * The events 'trackCreated' and 'trackDeleted' are trigger when the player cards are dragged and
    * dropped. This updates the player so that the player will play the tracks in the new order.
@@ -82,7 +101,6 @@ myModule.service('playerService', function($rootScope) {
       console.log("playing track now at index " + trackIndex);
     }
   });
-
   $rootScope.$on('trackRemoved', function(event, track, index) {
     trackList.splice(index, 1);
     console.log("track removed");
@@ -90,7 +108,7 @@ myModule.service('playerService', function($rootScope) {
 
   /*
    * This click listener allows the user to click on the song progress bar to
-   * change the position in the current playing track.
+   * change the position in the currently playing track.
    */
   $(document).on('click', '.song-progress-wrapper', function(e) {
     var pos = e.pageX - $(this).offset().left;
@@ -99,9 +117,10 @@ myModule.service('playerService', function($rootScope) {
     currentSound.setPosition(newPos);
   });
 
+
+  //init variables for the playerService
   $rootScope.currentPos = 0;
 
-  //Player Logic
   var autoPlay = false;
   var trackIndex = 0;
   var playing = false;
@@ -117,7 +136,7 @@ myModule.service('playerService', function($rootScope) {
       return currentTrack;
     },
 
-    //Player Control Logic
+    //Player Control Logic || playFromPlayer could be made cleaner. call playPauseTrack(trackList[0], 0)
     playFromPlayer: function() {
       if (currentSound === null) {
         SC.stream("/tracks/" + trackList[0].id, function(audio) {
@@ -147,7 +166,11 @@ myModule.service('playerService', function($rootScope) {
         }
       }
     },
-    //Card Sound Control Logic
+    /*
+     * Given a Soundcloud track object and the array index of that track,
+     * makes a call to the soundcloud API to stream the track (if a new track)
+     * or will just restart the track (if the same track that is already playing)
+     */
     playPauseTrack: function(track, index) {
       if (currentTrack === track) {
         console.log("same track!");
@@ -174,6 +197,7 @@ myModule.service('playerService', function($rootScope) {
                 $rootScope.$broadcast('newTrackPlayed', currentTrack, currentSound);
               });
             },
+            //Updates the progress bar div as the song plays
             whileplaying: function() {
               $rootScope.safeApply(function() {
                 $rootScope.currentPos = (audio.position / audio.duration) * 200;

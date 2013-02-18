@@ -7,7 +7,13 @@ myModule.controller('PlayerCtrl', ['$scope', 'profileInfo', 'playerService', fun
   //init scope variables
   $scope.currentTrack = { artwork_url: '../img/default-player-artwork.png' };
 
-  //ng-click Player Control functions
+  /* 
+   * ng-click Player Control functions
+   *-----------------------------------
+   * These functions are wrapper functions that call their corresponding
+   * function in the playerService service. They allow for the player to control
+   * music flow.
+   */
    $scope.play = function() {
     playerService.playFromPlayer();
   };
@@ -35,14 +41,21 @@ myModule.controller('PlayerCtrl', ['$scope', 'profileInfo', 'playerService', fun
   //Event logic
   
   /*
-   * The 'newTrackPlayed' event updates $scope.currentTrack so that the
-   * UI updates correctly on a song change.
+   * Callback for the 'newTrackPlayed' event
+   * ------------------------------------------
+   * Updates $scope.currentTrack so that the UI updates correctly on a song change.
    */
   $scope.$on('newTrackPlayed', function(event, track, sound) {
     console.log("new track played!");
     $scope.currentTrack = track;
   });
 
+  /*
+   * Callback for the 'trackFinished' event
+   * ---------------------------------------
+   * Skips to the next track in the playlist. Could potentially be removed if we could
+   * call 'skipFwd()' directly in the playerService.
+   */
   $scope.$on('trackFinished', function() {
     console.log("track finished!");
     playerService.skipFwd();
