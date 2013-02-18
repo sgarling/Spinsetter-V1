@@ -2,8 +2,7 @@
 <script src="/socket.io/socket.io.js"></script>
 <script src="/underscore.js"></script>
 <script>
-    var tracks = new Array();
-    var socket = io.connect('http://localhost');
+    var socket = io.connect('http://jmvldz.com');
     socket.on('tracks', function (data) {
         $('body').empty();
         _.each(data, function (value, key, list)
