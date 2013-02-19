@@ -4,46 +4,63 @@
  */
 myModule.factory('profileInfo', function($rootScope)
 {
-  //profile / track data grabbed from here
-  var profiles = [
-    {username: "Danny", trackIDs: [74494996, 294, 75868018, 74421378] },
-    {username: "Josh", trackIDs: [75237140, 74913382, 74432728] },
-    {username: "Samora", trackIDs:[74494996, 294, 75868018, 74421378, 75237140, 74913382, 74432728]}];
+    // fetch profile data using socket.io
+    //var socket = io.connect('http://jmvldz.com');
+    // static profiles
+    var profiles = [
+        {username: "Danny", trackIDs: [74494996, 294, 75868018, 74421378] },
+        {username: "Josh", trackIDs: [75237140, 74913382, 74432728] },
+        {username: "Samora", trackIDs:[74494996, 294, 75868018, 74421378, 75237140, 74913382, 74432728]}];
 
-  //replaces 100x100px soundcloud artwork url with the 500x500px artwork url
-  function getEnlargedArtwork(artwork_url)
-  {
-    return artwork_url.replace("large", "t500x500");
-  }
+    // replaces 100x100px soundcloud artwork url with the 500x500px artwork url
+    function getEnlargedArtwork(artwork_url)
+    {
+        return artwork_url.replace("large", "t500x500");
+    }
 
-  return {
+    return {
+
+        /*
+        onSocket: function (callback) {
+            socket.on('tracks', function (data) {
+                var args = arguments;
+                    $rootScope.$apply(function () {
+                        callback.apply(socket, args);
+                });
+            });
+        },
+        */
+
     getProfiles: function()
     {
-      return profiles;
+        return profiles;
     },
+
     getProfile: function(username)
     {
-      var profile = _.find(profiles, function(profile)
-      {
-        return profile.username == username;
-      });
-      return profile;
+        var profile = _.find(profiles, function(profile)
+        {
+            return profile.username == username;
+        });
+        return profile;
     },
+
     //Returns an array of Soundcloud 'track' objects that correspond to the track urls in the 'profiles' object
     getTracks: function(profile)
     {
-      _.each(profile.trackIDs, function(trackID)
-      {
-        SC.get("/tracks/" + trackID, function(track)
+        _.each(profile.trackIDs, function(trackID)
         {
-          track.playIconState = "play";
-          $rootScope.$apply(function()
-          {
-           //track.artwork_url = getEnlargedArtwork(track.artwork_url); (grabs enlarged artwork URL)
-            $rootScope.$broadcast('trackReturned', track);
-          });
+            SC.get("/tracks/" + trackID, function(track)
+            {
+                track.playIconState = "play";
+                $rootScope.$apply(function()
+                {
+                    //track.artwork_url = getEnlargedArtwork(track.artwork_url); (grabs enlarged artwork URL)
+                    $rootScope.$broadcast('trackReturned', track);
+                });
+            });
         });
-      });
     }
-  };
+
+    };
 });

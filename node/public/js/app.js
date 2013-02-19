@@ -11,16 +11,19 @@ SC.initialize(
  */
 var myModule = angular.module('ddPlayer', ['ui'], function($routeProvider, $locationProvider)
 {
+
   $routeProvider.when('/',
   {
     templateUrl: '/html/home.html',
     controller: 'HomeCtrl'
   });
+
   $routeProvider.when('/profile/:username',
   {
     templateUrl: '/html/profile.html',
     controller: 'ProfileCtrl'
   });
+
   // configure html5 to get links working on jsfiddle
   $locationProvider.html5Mode(true);
 });

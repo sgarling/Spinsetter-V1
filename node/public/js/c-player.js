@@ -2,45 +2,45 @@
  * soundcloud/angular disagreement, and the whole page would run a lot more smoothly
  */
 
-myModule.controller('PlayerCtrl', ['$scope', 'profileInfo', 'playerService', function($scope, profileInfo, playerService) 
+myModule.controller('PlayerCtrl', ['$scope', 'profileInfo', 'playerService', function($scope, profileInfo, playerService)
 {
 
   //Initialize $scope.currentTrack so the player has a default image when the page loads
   $scope.currentTrack = { artwork_url: '../img/default-player-artwork.png' };
 
-  /* 
+  /*
    * ng-click Player Control functions
    *-----------------------------------
    * These functions are wrapper functions that call their corresponding
    * function in the playerService service. They allow for the player to control
    * music flow.
    */
-  $scope.play = function() 
+  $scope.play = function()
   {
     playerService.playFromPlayer();
   };
 
-  $scope.pause = function() 
+  $scope.pause = function()
   {
     playerService.pause();
   };
 
-  $scope.ffwd = function() 
+  $scope.ffwd = function()
   {
     playerService.ffwd();
   };
 
-  $scope.rewind = function() 
+  $scope.rewind = function()
   {
     playerService.rewind();
   };
 
-  $scope.skipFwd = function() 
+  $scope.skipFwd = function()
   {
     playerService.skipFwd();
   };
 
-  $scope.skipBack = function() 
+  $scope.skipBack = function()
   {
     playerService.skipBack();
   };
@@ -53,7 +53,7 @@ myModule.controller('PlayerCtrl', ['$scope', 'profileInfo', 'playerService', fun
    * ------------------------------------------
    * Updates $scope.currentTrack so that the UI updates correctly on a song change.
    */
-  $scope.$on('newTrackPlayed', function(event, track, sound) 
+  $scope.$on('newTrackPlayed', function(event, track, sound)
   {
     console.log("new track played!");
     $scope.currentTrack = track;
@@ -65,9 +65,9 @@ myModule.controller('PlayerCtrl', ['$scope', 'profileInfo', 'playerService', fun
    * Skips to the next track in the playlist. Could potentially be removed if we could
    * call 'skipFwd()' directly in the playerService.
    */
-  $scope.$on('trackFinished', function() 
+  $scope.$on('trackFinished', function()
   {
     console.log("track finished!");
     playerService.skipFwd();
   });
-}]);  
+}]);

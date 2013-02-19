@@ -1,5 +1,6 @@
 <!doctype html>
 <html ng-app="ddPlayer">
+
   <head>
     <script src="//connect.soundcloud.com/sdk.js"></script>
     <script src="js/jquery-1.8.2.min.js"></script>
@@ -11,9 +12,13 @@
     <script type="text/javascript" src="js/app.js"></script>
     <script type="text/javascript" src="js/c-player.js"></script>
     <script type="text/javascript" src="js/c-pageview.js"></script>
+    <script type="text/javascript" src="js/c-playerService.js"></script>
+    <script type="text/javascript" src="js/c-profileInfo.js"></script>
     <link rel="stylesheet" href="css/style.css">
   </head>
+
   <body>
+
     <div ng-controller="PlayerCtrl">
       <h2>Custom Player for Spinsetter by Danny Dalton</h2>
       <div class="track-info">
@@ -25,6 +30,7 @@
         </div>
       </div>
       <br>
+
       <div class="player-controls">
         <div class="first-player-control" ng-click="skipBack()">SkipBack</div>
         <div ng-click="rewind()">Rewind("")</div>
@@ -35,6 +41,7 @@
       </div>
     </div>
     <br />
+
     <div ng-controller="PageViewCtrl">
       <hr />
       <h4>Pages:</h3>
@@ -45,5 +52,7 @@
       <hr />
       <div ng-view></div>
       <div>
+
   </body>
+
 </html>
