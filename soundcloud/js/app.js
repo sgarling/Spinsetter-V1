@@ -130,7 +130,7 @@ myModule.factory('playerService', function($rootScope)
    * This click listener allows the user to click on the song progress bar to
    * change the position in the currently playing track.
    */
-  $(document).('click', '.song-progress-wrapper', function(e) 
+  $(document).on('click', '.song-progress-wrapper', function(e) 
   {
     var pos = e.pageX - $(this).offset().left;
     var relPos = currentSound.duration*pos;
