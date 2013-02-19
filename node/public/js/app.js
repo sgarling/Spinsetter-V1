@@ -9,16 +9,16 @@ SC.initialize(
  * ng-view div. The routing service controls what view is displayed depending
  * on the route path.
  */
-var myModule = angular.module('ddPlayer', ['ui'], function($routeProvider, $locationProvider) 
+var myModule = angular.module('ddPlayer', ['ui'], function($routeProvider, $locationProvider)
 {
-  $routeProvider.when('/', 
+  $routeProvider.when('/',
   {
-    templateUrl: '../home.html',
+    templateUrl: '/html/home.html',
     controller: 'HomeCtrl'
   });
-  $routeProvider.when('/profile/:username', 
+  $routeProvider.when('/profile/:username',
   {
-    templateUrl: '../profile.html',
+    templateUrl: '/html/profile.html',
     controller: 'ProfileCtrl'
   });
   // configure html5 to get links working on jsfiddle
@@ -29,7 +29,7 @@ var myModule = angular.module('ddPlayer', ['ui'], function($routeProvider, $loca
  * The profileInfo service contains the profile information that needs
  * to be persistent across multiple controllers.
  */
-myModule.factory('profileInfo', function($rootScope) 
+myModule.factory('profileInfo', function($rootScope)
 {
   //profile / track data grabbed from here
   var profiles = [
@@ -38,33 +38,33 @@ myModule.factory('profileInfo', function($rootScope)
     {username: "Samora", trackIDs:[74494996, 294, 75868018, 74421378, 75237140, 74913382, 74432728]}];
 
   //replaces 100x100px soundcloud artwork url with the 500x500px artwork url
-  function getEnlargedArtwork(artwork_url) 
+  function getEnlargedArtwork(artwork_url)
   {
     return artwork_url.replace("large", "t500x500");
   }
 
   return {
-    getProfiles: function() 
+    getProfiles: function()
     {
       return profiles;
     },
-    getProfile: function(username) 
+    getProfile: function(username)
     {
-      var profile = _.find(profiles, function(profile) 
+      var profile = _.find(profiles, function(profile)
       {
         return profile.username == username;
       });
       return profile;
     },
     //Returns an array of Soundcloud 'track' objects that correspond to the track urls in the 'profiles' object
-    getTracks: function(profile) 
+    getTracks: function(profile)
     {
-      _.each(profile.trackIDs, function(trackID) 
+      _.each(profile.trackIDs, function(trackID)
       {
-        SC.get("/tracks/" + trackID, function(track) 
+        SC.get("/tracks/" + trackID, function(track)
         {
           track.playIconState = "play";
-          $rootScope.$apply(function() 
+          $rootScope.$apply(function()
           {
            //track.artwork_url = getEnlargedArtwork(track.artwork_url); (grabs enlarged artwork URL)
             $rootScope.$broadcast('trackReturned', track);
@@ -77,19 +77,19 @@ myModule.factory('profileInfo', function($rootScope)
 
 
 
-myModule.factory('playerService', function($rootScope) 
+myModule.factory('playerService', function($rootScope)
 {
 
   //Use this function instead of apply in order to safely update DOM when switching between tracks. See: https://coderwall.com/p/ngisma
-  $rootScope.safeApply = function(fn) 
-  { 
-    var phase = this.$root.$$phase; 
-    if(phase == '$apply' || phase == '$digest') { if(fn) fn(); } 
-    else { this.$apply(fn); } 
+  $rootScope.safeApply = function(fn)
+  {
+    var phase = this.$root.$$phase;
+    if(phase == '$apply' || phase == '$digest') { if(fn) fn(); }
+    else { this.$apply(fn); }
   };
 
   //Event logic
-  /* 
+  /*
    * Callback for 'profileChange' event
    * -----------------------------------
    * Resets the track list so the correct tracks are displayed on each profile.
@@ -97,20 +97,20 @@ myModule.factory('playerService', function($rootScope)
    * after switching to a new profile that it skips to the first track in the new profile,
    * or if the user clicks skipBack it skips to the last track in the new profile.
    */
-  $rootScope.$on('profileChange', function() 
+  $rootScope.$on('profileChange', function()
   {
     trackList = [];
     trackIndex = -1;
   });
 
-  /* 
+  /*
    * The events 'trackCreated' and 'trackDeleted' are trigger when the player cards are dragged and
    * dropped. This updates the player so that the player will play the tracks in the new order.
    */
-  $rootScope.$on('trackCreated', function(event, track, index) 
+  $rootScope.$on('trackCreated', function(event, track, index)
   {
     trackList.splice(index, 0, track);
-    if (track === currentTrack) 
+    if (track === currentTrack)
     {
       trackIndex = index;
       console.log("playing track now at index " + trackIndex);
@@ -120,7 +120,7 @@ myModule.factory('playerService', function($rootScope)
     }
   });
 
-  $rootScope.$on('trackRemoved', function(event, track, index) 
+  $rootScope.$on('trackRemoved', function(event, track, index)
   {
     trackList.splice(index, 1);
     console.log("track removed");
@@ -130,7 +130,7 @@ myModule.factory('playerService', function($rootScope)
    * This click listener allows the user to click on the song progress bar to
    * change the position in the currently playing track.
    */
-  $(document).on('click', '.song-progress-wrapper', function(e) 
+  $(document).on('click', '.song-progress-wrapper', function(e)
   {
     var pos = e.pageX - $(this).offset().left;
     var relPos = currentSound.duration*pos;
@@ -153,17 +153,17 @@ myModule.factory('playerService', function($rootScope)
 
   return {
     //Getters
-    getCurrentTrack: function() 
+    getCurrentTrack: function()
     {
       return currentTrack;
     },
 
     //Player Control Logic || playFromPlayer could be made cleaner. call playPauseTrack(trackList[0], 0)
-    playFromPlayer: function() 
+    playFromPlayer: function()
     {
-      if (currentSound === null) 
+      if (currentSound === null)
       {
-        SC.stream("/tracks/" + trackList[0].id, function(audio) 
+        SC.stream("/tracks/" + trackList[0].id, function(audio)
         {
           currentSound = audio;
           currentTrack = trackList[0];
@@ -171,13 +171,13 @@ myModule.factory('playerService', function($rootScope)
           trackIndex = 0;
           audio.play(
           {
-            onplay: function() 
+            onplay: function()
             {
               $rootScope.safeApply(function() {
                 $rootScope.$broadcast('newTrackPlayed', currentTrack, currentSound);
               });
             },
-            whileplaying: function() 
+            whileplaying: function()
             {
               $rootScope.safeApply(function() {
                 $rootScope.currentPos = (audio.position / audio.duration) * 200;
@@ -188,7 +188,7 @@ myModule.factory('playerService', function($rootScope)
         });
         playing = true;
       } else {
-        if (!playing) 
+        if (!playing)
         {
           currentSound.play();
           playing = true;
@@ -200,88 +200,88 @@ myModule.factory('playerService', function($rootScope)
      * makes a call to the soundcloud API to stream the track (if a new track)
      * or will just restart the track (if the same track that is already playing)
      */
-    playPauseTrack: function(track, index) 
+    playPauseTrack: function(track, index)
     {
-      if (currentTrack === track) 
+      if (currentTrack === track)
       {
         console.log("same track!");
-        if (!playing) 
-        { 
+        if (!playing)
+        {
           currentSound.play();
           playing = true;
-        } else { 
+        } else {
           currentSound.pause();
           playing = false;
         }
       } else {
         console.log("different track!");
-        if (playing) 
-        { 
-          currentSound.stop(); 
+        if (playing)
+        {
+          currentSound.stop();
           playing = false;
         }
-        SC.stream("/tracks/" + track.id, function(audio) 
+        SC.stream("/tracks/" + track.id, function(audio)
         {
           currentSound = audio;
           currentTrack = track;
           trackIndex = index;
           audio.play(
           {
-            onplay: function() 
+            onplay: function()
             {
-              $rootScope.safeApply(function() 
+              $rootScope.safeApply(function()
               {
                 $rootScope.$broadcast('newTrackPlayed', currentTrack, currentSound);
               });
             },
             //Updates the progress bar div as the song plays
-            whileplaying: function() 
+            whileplaying: function()
             {
-              $rootScope.safeApply(function() 
+              $rootScope.safeApply(function()
               {
                 $rootScope.currentPos = (audio.position / audio.duration) * 200;
                 if ($rootScope.currentPos == 200) { $rootScope.$broadcast('trackFinished'); }
               });
             }
            });
-        }); 
+        });
         playing = true;
       }
     },
-    pause: function() 
+    pause: function()
     {
-      if(currentSound) 
+      if(currentSound)
       {
-        if (playing) 
-        { 
-          currentSound.pause(); 
+        if (playing)
+        {
+          currentSound.pause();
           playing = false;
         }
       }
     },
-    ffwd: function() 
+    ffwd: function()
     {
-      if(currentSound) 
+      if(currentSound)
       {
-        $rootScope.safeApply(function() 
+        $rootScope.safeApply(function()
         {
           currentSound.setPosition(currentSound.position + 5000);
         });
      }
     },
-    rewind: function() 
+    rewind: function()
     {
-      if (currentSound) 
+      if (currentSound)
       {
-        $rootScope.safeApply(function() 
+        $rootScope.safeApply(function()
         {
           currentSound.setPosition(currentSound.position - 5000);
         });
       }
     },
-    skipFwd: function() 
+    skipFwd: function()
     {
-      if (currentSound) 
+      if (currentSound)
       {
         currentSound.stop();
         currentTrack.playIconState = "play";
@@ -293,9 +293,9 @@ myModule.factory('playerService', function($rootScope)
         this.playPauseTrack(track, trackIndex);
       }
     },
-    skipBack: function() 
+    skipBack: function()
     {
-      if (currentSound) 
+      if (currentSound)
       {
         currentSound.stop();
         currentTrack.playIconState = "play";
