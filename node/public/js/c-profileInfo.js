@@ -4,13 +4,26 @@
  */
 myModule.factory('profileInfo', function($rootScope)
 {
-    // fetch profile data using socket.io
-    //var socket = io.connect('http://jmvldz.com');
+
     // static profiles
     var profiles = [
         {username: "Danny", trackIDs: [74494996, 294, 75868018, 74421378] },
         {username: "Josh", trackIDs: [75237140, 74913382, 74432728] },
         {username: "Samora", trackIDs:[74494996, 294, 75868018, 74421378, 75237140, 74913382, 74432728]}];
+
+    var socket = io.connect();
+    socket.on('tracks', function (data)
+    {
+        trackIDs = data;
+        for(var i = 0; i < trackIDs.length; i++)
+            { trackIDs[i] = parseInt(trackIDs[i], 10); }
+        console.log('Data updated');
+        console.log(data);
+        profiles = [
+            {username: "Danny", trackIDs: trackIDs},
+            {username: "Josh", trackIDs: trackIDs},
+            {username: "Samora", trackIDs: trackIDs}];
+    });
 
     // replaces 100x100px soundcloud artwork url with the 500x500px artwork url
     function getEnlargedArtwork(artwork_url)
@@ -19,48 +32,36 @@ myModule.factory('profileInfo', function($rootScope)
     }
 
     return {
-
-        /*
-        onSocket: function (callback) {
-            socket.on('tracks', function (data) {
-                var args = arguments;
-                    $rootScope.$apply(function () {
-                        callback.apply(socket, args);
-                });
-            });
+        getProfiles: function()
+        {
+            return profiles;
         },
-        */
 
-    getProfiles: function()
-    {
-        return profiles;
-    },
-
-    getProfile: function(username)
-    {
-        var profile = _.find(profiles, function(profile)
+        getProfile: function(username)
         {
-            return profile.username == username;
-        });
-        return profile;
-    },
-
-    //Returns an array of Soundcloud 'track' objects that correspond to the track urls in the 'profiles' object
-    getTracks: function(profile)
-    {
-        _.each(profile.trackIDs, function(trackID)
-        {
-            SC.get("/tracks/" + trackID, function(track)
+            var profile = _.find(profiles, function(profile)
             {
-                track.playIconState = "play";
-                $rootScope.$apply(function()
+                return profile.username == username;
+            });
+            return profile;
+        },
+
+        //Returns an array of Soundcloud 'track' objects that correspond to the track urls in the 'profiles' object
+        getTracks: function(profile)
+        {
+            _.each(profile.trackIDs, function(trackID)
+            {
+                SC.get("/tracks/" + trackID, function(track)
                 {
-                    //track.artwork_url = getEnlargedArtwork(track.artwork_url); (grabs enlarged artwork URL)
-                    $rootScope.$broadcast('trackReturned', track);
+                    track.playIconState = "play";
+                    $rootScope.$apply(function()
+                    {
+                        //track.artwork_url = getEnlargedArtwork(track.artwork_url); (grabs enlarged artwork URL)
+                        $rootScope.$broadcast('trackReturned', track);
+                    });
                 });
             });
-        });
-    }
+        }
 
     };
 });

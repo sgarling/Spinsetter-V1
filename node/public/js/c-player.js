@@ -2,10 +2,9 @@
  * soundcloud/angular disagreement, and the whole page would run a lot more smoothly
  */
 
-myModule.controller('PlayerCtrl', ['$scope', 'profileInfo', 'playerService', function($scope, profileInfo, playerService)
+myModule.controller('PlayerCtrl', ['$scope', 'profileInfo', 'playerService', function($scope, profileInfo, playerService, socket)
 {
-
-  //Initialize $scope.currentTrack so the player has a default image when the page loads
+   //Initialize $scope.currentTrack so the player has a default image when the page loads
   $scope.currentTrack = { artwork_url: '../img/default-player-artwork.png' };
 
   /*

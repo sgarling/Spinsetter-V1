@@ -1,7 +1,7 @@
  //Initialize Soundcloud API
 SC.initialize(
 {
-  client_id: "78bfc6a742a617082972ddc5ef20df2a",
+  client_id: "78bfc6a742a617082972ddc5ef20df2a"
 });
 
 /*
@@ -11,7 +11,6 @@ SC.initialize(
  */
 var myModule = angular.module('ddPlayer', ['ui'], function($routeProvider, $locationProvider)
 {
-
   $routeProvider.when('/',
   {
     templateUrl: '/html/home.html',
