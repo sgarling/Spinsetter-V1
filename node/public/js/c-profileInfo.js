@@ -20,18 +20,29 @@ myModule.factory('profileInfo', function($rootScope)
         console.log('Data updated');
         console.log(data);
         profiles = [
-            {username: "Danny", trackIDs: trackIDs},
-            {username: "Josh", trackIDs: trackIDs},
-            {username: "Samora", trackIDs: trackIDs}];
+            {username: "Danny", trackIDs: angular.copy(trackIDs)},
+            {username: "Josh", trackIDs: angular.copy(trackIDs)},
+            {username: "Samora", trackIDs: angular.copy(trackIDs)}];
     });
-
+    
     // replaces 100x100px soundcloud artwork url with the 500x500px artwork url
     function getEnlargedArtwork(artwork_url)
     {
         return artwork_url.replace("large", "t500x500");
     }
 
+    function getProfileIndex(username)
+    {
+        for (var i = 0; i < profiles.length; i++)
+        {
+            if (profiles[i].username == username) { return i; }
+        }
+        return -1;
+    }
+
     return {
+        
+        //Getters and Setters
         getProfiles: function()
         {
             return profiles;
@@ -39,6 +50,8 @@ myModule.factory('profileInfo', function($rootScope)
 
         getProfile: function(username)
         {
+           // var profileIndex = getProfileIndex(username);
+            //return profiles[profileIndex];
             var profile = _.find(profiles, function(profile)
             {
                 return profile.username == username;
@@ -53,15 +66,51 @@ myModule.factory('profileInfo', function($rootScope)
             {
                 SC.get("/tracks/" + trackID, function(track)
                 {
-                    track.playIconState = "play";
-                    $rootScope.$apply(function()
+                    if (track.title != null)
                     {
-                        //track.artwork_url = getEnlargedArtwork(track.artwork_url); (grabs enlarged artwork URL)
-                        $rootScope.$broadcast('trackReturned', track);
-                    });
+                        track.playIconState = "play";
+                        if (track.artwork_url == null) { track.artwork_url="../img/default-player-artwork.png"; }
+                        $rootScope.$apply(function()
+                        {
+                            //track.artwork_url = getEnlargedArtwork(track.artwork_url); (grabs enlarged artwork URL)
+                            $rootScope.$broadcast('trackReturned', track);
+                        });
+                    } else {
+                        $rootScope.$apply(function()
+                        {
+                            $rootScope.$broadcast('trackInvalid', trackID);
+                        });
+                        SC.get("/playlists/" + trackID, function(playlist)
+                        {
+                            if (playlist.tracks != null)
+                            {
+                                _.each(playlist.tracks, function(track)
+                                {
+                                    track.playIconState = "play";
+                                    if (track.artwork_url == null) { track.artwork_url="../img/default-player-artwork.png"; }
+                                    $rootScope.$apply(function()
+                                    {
+                                        $rootScope.$broadcast('trackReturned', track);
+                                    });
+                                });
+                            } else {
+                                //trackInvalid event call was here
+                            }
+                        });
+                    }
                 });
             });
+        },
+	//Adds respun track to given profile
+	//Need to check for duplicate tracks in future implementations
+        addTrack: function(username, trackID)
+        {
+            var index = 0;
+            for (var i = 0; i < profiles.length; i++)
+            {
+                if (profiles[i].username == username) { index = i; }
+            }
+            profiles[index].trackIDs.push(trackID);
         }
-
     };
 });

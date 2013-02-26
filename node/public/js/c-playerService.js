@@ -113,9 +113,13 @@ myModule.factory('playerService', function($rootScope)
         {
           currentSound.play();
           playing = true;
+        } else {
+          currentSound.pause();
+          playing = false;
         }
       }
     },
+    
     /*
      * Given a Soundcloud track object and the array index of that track,
      * makes a call to the soundcloud API to stream the track (if a new track)

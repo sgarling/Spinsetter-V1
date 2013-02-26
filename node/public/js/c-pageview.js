@@ -15,7 +15,7 @@ myModule.controller('PageViewCtrl', ['$scope', '$route', '$routeParams', '$locat
  * Controller for individual profile pages. Contains all information necessary to
  * correctly display and update a profile page.
  */
-myModule.controller('ProfileCtrl', ['$scope', '$routeParams', 'profileInfo', 'playerService', function($scope, $routeParams, profileInfo, playerService)
+myModule.controller('ProfileCtrl', ['$scope', '$routeParams', 'profileInfo', 'playerService', 'loggedUserService', function($scope, $routeParams, profileInfo, playerService, loggedUserService)
 {
 
   $scope.$emit('profileChange');
@@ -39,6 +39,7 @@ myModule.controller('ProfileCtrl', ['$scope', '$routeParams', 'profileInfo', 'pl
     $scope.$emit('trackRemoved', track, index);
   });
 
+  //Controls play/pause from each card
   $scope.playFromCard = function(track)
   {
     var trackIndex = _.indexOf($scope.profile.trackIDs, track.id);
@@ -49,12 +50,22 @@ myModule.controller('ProfileCtrl', ['$scope', '$routeParams', 'profileInfo', 'pl
     playerService.playPauseTrack(track, trackIndex);
   };
 
+  //Deletes track from tracks array, in future could add in temp vs perma delete possibly
   $scope.deleteCard = function(track)
   {
-    var trackIndex = _.indexOf($scope.profile.trackIDs, track.id);
+    //do we want to allow the currently logged in user to only delete tracks on his profile? I believe the way the code is currently structured,
+    //deletion will only occur on the currently logged in user's computers
+    var trackIDs = _.pluck($scope.tracks, 'id');
+    var trackIndex = _.indexOf(trackIDs, track.id);
     console.log("track at index " + trackIndex + "deleted");
     $scope.profile.trackIDs.splice(trackIndex, 1);
     $scope.tracks.splice(trackIndex, 1);
+  };
+
+  //adds track to logged in user's profile
+  $scope.reSpin = function(track) {
+    var curUser = loggedUserService.getUsername();
+    profileInfo.addTrack(curUser, track.id);
   };
 
   //Event Logic
@@ -67,6 +78,14 @@ myModule.controller('ProfileCtrl', ['$scope', '$routeParams', 'profileInfo', 'pl
   $scope.$on('trackReturned', function(event, track)
   {
     $scope.tracks.push(track);
+    if (!_.contains($scope.profile.trackIDs, track.id)) { $scope.profile.trackIDs.push(track.id); }
+  });
+
+  $scope.$on('trackInvalid', function(event, trackID)
+  {
+    console.log("removing id: " + trackID);
+    var trackIndex = _.indexOf($scope.profile.trackIDs, trackID);
+    $scope.profile.trackIDs.splice(trackIndex, 1);
   });
 
   /*

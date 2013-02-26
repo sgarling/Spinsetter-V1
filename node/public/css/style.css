@@ -36,22 +36,45 @@ li {
 	margin: 10px 10px;
 	padding: 3px;
 	font-size: 14px;
+	white-space: nowrap;
+	overflow: hidden;
 }
 
-.song-card .card-buttons {
+.song-card .card-buttons-top,
+.song-card .card-buttons-bot {
 	height: 20px;
 }
 
-.song-card .card-buttons .card-handle {
+.song-card .card-buttons-top .card-handle {
+/*	display: none; */
 	float: left;
 	width: 20px;
 	height: 20px;
 }
 
-.song-card .card-buttons .card-delete {
+.song-card .card-buttons-top .card-delete {
+/*	display: none; */
 	float: right;
 	width: 20px;
 	height: 20px;
+}
+
+/*.song-card:hover .card-buttons-top .card-handle {
+	display: block;
+}
+
+.song-card:hover .card-buttons-top .card-delete {
+	display: block;
+} */
+
+.song-card .card-buttons-bot .sc-link {
+	float: left;
+	width: 30px;
+}
+
+.song-card .card-buttons-bot .song-respin {
+	float: right;
+	width: 20px;
 }
 
 .song-card .song-artist {
@@ -61,6 +84,7 @@ li {
 .song-artwork {
 	width: 100px;
 	height: 100px;
+	margin: 5px auto;
 }
 .song-artwork .card-play-pause {
 	display: none;

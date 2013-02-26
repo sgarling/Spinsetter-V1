@@ -69,4 +69,28 @@ myModule.controller('PlayerCtrl', ['$scope', 'profileInfo', 'playerService', fun
     console.log("track finished!");
     playerService.skipFwd();
   });
+
+  var keys = {};
+  //Key Bindings
+  $(document).keydown(function(e)
+  {
+    keys[e.keyCode] = true;
+    console.log(e.keyCode);
+    if (e.keyCode == 32) //Spacebar
+    {
+      e.preventDefault();
+      $scope.play();
+    } else if (e.keyCode == 39 && !keys[91]) { //Right Arrow Key w/o cmd key
+      $scope.ffwd();
+    } else if (e.keyCode == 37 && !keys[91]) { //Left Arrow Key w/o cmd key
+      $scope.rewind();
+    }
+  });
+
+  $(document).keyup(function (e)
+  {
+    delete keys[e.keyCode];
+    
+  });
+
 }]);
