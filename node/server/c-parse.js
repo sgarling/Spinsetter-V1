@@ -12,10 +12,12 @@ var parseTrack = /\/([0-9]+)/;
 var parseTrack2 = /\/([a-z]+)\/([0-9]+)/;
 
 // Add track to db
-function addTrack (trackID)
+function addTrack (trackInfo)
 {
-    var track = {id: trackID};
-    db.save('tracks', trackID, track);
+    //var track = {id: trackID};
+    var track = { resource: trackInfo[1], id: trackInfo[2] };
+    //db.save('tracks', trackID, track);
+    db.save('tracks', track.id, track);
 }
 
 // Process feed for track
@@ -42,15 +44,15 @@ function processFeed (article)
 
         // Parse track id
         var trackID = parseTrack.exec(uri.url);
-        var newID = parseTrack2.exec(uri.url);
+        var trackInfo = parseTrack2.exec(uri.url);
 
         if (!trackID)
             return;
 
         // Add track
-        addTrack(trackID[1]);
+        //addTrack(trackID[1]);
         //console.log(newID[0]);
-        //addTrack(myID);
+        addTrack(trackInfo);
       }
     });
 }
@@ -71,7 +73,8 @@ exports.importFeed = function (url, io)
                             var trackList = new Array();
                             tracks.forEach(function (track, i, arr)
                                            {
-                                               trackList.push(track.id);
+                                                trackList.push(track);
+                                                //trackList.push(track.id);
                                            }
                                           );
 

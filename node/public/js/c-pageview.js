@@ -23,8 +23,10 @@ myModule.controller('ProfileCtrl', ['$scope', '$routeParams', 'profileInfo', 'pl
   $scope.profile = profileInfo.getProfile($routeParams.username);
   $scope.tracks = [];
 
-  profileInfo.getTracks($scope.profile);
+  $scope.template = { name: '/html/profileStream.html', url: '/html/profileStream.html' };
 
+  profileInfo.getTracks($scope.profile);
+  
   /*
    * These observe functions are triggered when the $scope.tracks array is changed
    * (both when originally created and when updated by a drag-and-drop)
@@ -42,7 +44,8 @@ myModule.controller('ProfileCtrl', ['$scope', '$routeParams', 'profileInfo', 'pl
   //Controls play/pause from each card
   $scope.playFromCard = function(track)
   {
-    var trackIndex = _.indexOf($scope.profile.trackIDs, track.id);
+    var trackIDs = _.pluck($scope.tracks, 'id');
+    var trackIndex = _.indexOf(trackIDs, track.id);
     var oldTrack = playerService.getCurrentTrack();
     if (track !== oldTrack && oldTrack !== null) { oldTrack.playIconState = "play"; }
     if (track.playIconState === "play") { track.playIconState = "pause"; }
@@ -62,11 +65,20 @@ myModule.controller('ProfileCtrl', ['$scope', '$routeParams', 'profileInfo', 'pl
     $scope.tracks.splice(trackIndex, 1);
   };
 
+  $scope.like = function(track)
+  {
+    var curUser = loggedUserService.getUsername();
+    profileInfo.likeTrack(curUser, track);
+  }
   //adds track to logged in user's profile
-  $scope.reSpin = function(track) {
+  $scope.reSpin = function(track)
+  {
     var curUser = loggedUserService.getUsername();
     profileInfo.addTrack(curUser, track.id);
   };
+
+  $scope.viewLikedPlaylist = function() { $scope.template = { name: '/html/profileLikes.html', url: '/html/profileLikes.html' }; }
+  $scope.viewStream = function() { $scope.template = { name: '/html/profileStream.html', url: '/html/profileStream.html' }; }
 
   //Event Logic
   /*
@@ -78,14 +90,20 @@ myModule.controller('ProfileCtrl', ['$scope', '$routeParams', 'profileInfo', 'pl
   $scope.$on('trackReturned', function(event, track)
   {
     $scope.tracks.push(track);
-    if (!_.contains($scope.profile.trackIDs, track.id)) { $scope.profile.trackIDs.push(track.id); }
+    var trackIDs = _.pluck($scope.profile.tracksInfo, 'id');
+    if (!_.contains(trackIDs, track.id))
+    {
+      var trackInfo = { resource: "tracks", id: track.id };
+      $scope.profile.tracksInfo.push(trackInfo);
+    }
   });
 
   $scope.$on('trackInvalid', function(event, trackID)
   {
     console.log("removing id: " + trackID);
-    var trackIndex = _.indexOf($scope.profile.trackIDs, trackID);
-    $scope.profile.trackIDs.splice(trackIndex, 1);
+    var trackIDs = _.pluck($scope.profile.tracksInfo, 'id');
+    var trackIndex = _.indexOf(trackIDs, trackID);
+    $scope.profile.trackInfos.splice(trackIndex, 1);
   });
 
   /*

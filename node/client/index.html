@@ -20,7 +20,21 @@
   </head>
 
   <body>
-
+    <div class="nav-bar">
+      <div class="nav-logo"><img src="../img/spin-logo.png" /></div>
+      <div class="nav-following"></div>
+      <div class="nav-blogs"></div>
+      <div class="nav-genres"></div>
+      <div ng-controller="PlayerCtrl" class="nav-player-ctrls">
+        <img class="player-skip-back" src="../img/player-skip-back.png" ng-click="skipBack()" />
+	<img class="player-play" src="../img/player-play.png" ng-click="play()" />
+	<img class="player-skip-fwd" src="../img/player-skip-fwd.png" ng-click="skipFwd()" />
+      </div>
+      <div class="nav-profile">
+        <img src="../img/profile-placeholder.png" />
+      </div>
+      <div class="clear"></div>
+    </div>
     <div ng-controller="PlayerCtrl">
       <h2>Custom Player for Spinsetter by Danny Dalton</h2>
       <div class="track-info">

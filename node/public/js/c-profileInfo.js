@@ -7,12 +7,12 @@ myModule.factory('profileInfo', function($rootScope)
 
     // static profiles
     var profiles = [
-        {username: "Danny", trackIDs: [74494996, 294, 75868018, 74421378] },
-        {username: "Josh", trackIDs: [75237140, 74913382, 74432728] },
-        {username: "Samora", trackIDs:[74494996, 294, 75868018, 74421378, 75237140, 74913382, 74432728]}];
+        {username: "Danny", tracksInfo: [74494996, 294, 75868018, 74421378] },
+        {username: "Josh", tracksInfo: [75237140, 74913382, 74432728] },
+        {username: "Samora", tracksInfo:[74494996, 294, 75868018, 74421378, 75237140, 74913382, 74432728]}];
 
     var socket = io.connect();
-    socket.on('tracks', function (data)
+/*    socket.on('tracks', function (data)
     {
         trackIDs = data;
         for(var i = 0; i < trackIDs.length; i++)
@@ -23,6 +23,17 @@ myModule.factory('profileInfo', function($rootScope)
             {username: "Danny", trackIDs: angular.copy(trackIDs)},
             {username: "Josh", trackIDs: angular.copy(trackIDs)},
             {username: "Samora", trackIDs: angular.copy(trackIDs)}];
+    }); */
+    
+    socket.on('tracks', function (data)
+    {
+        tracksInfo = data;
+        console.log('Data updated');
+        console.log(data);
+        profiles = [
+            {username: "Danny", tracksInfo: angular.copy(tracksInfo), likedTracks: [] },
+            {username: "Josh", tracksInfo: angular.copy(tracksInfo), likedTracks: [] },
+            {username: "Samora", tracksInfo: angular.copy(tracksInfo), likedTracks: [] }];
     });
     
     // replaces 100x100px soundcloud artwork url with the 500x500px artwork url
@@ -62,43 +73,47 @@ myModule.factory('profileInfo', function($rootScope)
         //Returns an array of Soundcloud 'track' objects that correspond to the track urls in the 'profiles' object
         getTracks: function(profile)
         {
-            _.each(profile.trackIDs, function(trackID)
+            _.each(profile.tracksInfo, function(trackInfo)
             {
-                SC.get("/tracks/" + trackID, function(track)
+                if (trackInfo.resource == "tracks")
                 {
-                    if (track.title != null)
+                    SC.get("/tracks/" + trackInfo.id, function(track)
                     {
-                        track.playIconState = "play";
-                        if (track.artwork_url == null) { track.artwork_url="../img/default-player-artwork.png"; }
-                        $rootScope.$apply(function()
+                        if (track.title != null)
                         {
-                            //track.artwork_url = getEnlargedArtwork(track.artwork_url); (grabs enlarged artwork URL)
-                            $rootScope.$broadcast('trackReturned', track);
-                        });
-                    } else {
-                        $rootScope.$apply(function()
-                        {
-                            $rootScope.$broadcast('trackInvalid', trackID);
-                        });
-                        SC.get("/playlists/" + trackID, function(playlist)
-                        {
-                            if (playlist.tracks != null)
+                            track.playIconState = "play";
+                            if (track.artwork_url == null) { track.artwork_url="../img/default-player-artwork.png"; }
+                            $rootScope.$apply(function()
                             {
-                                _.each(playlist.tracks, function(track)
+                                //track.artwork_url = getEnlargedArtwork(track.artwork_url); (grabs enlarged artwork URL)
+                                $rootScope.$broadcast('trackReturned', track);
+                            });
+                        } else {
+                            $rootScope.$apply(function()
+                            {
+                                $rootScope.$broadcast('trackInvalid', trackInfo.id);
+                            });
+                        }
+                    });
+                } else if (trackInfo.resource == "playlists") {
+                    SC.get("/playlists/" + trackInfo.id, function(playlist)
+                    {
+                        if (playlist.tracks != null)
+                        {
+                            _.each(playlist.tracks, function(track)
+                            {
+                                track.playIconState = "play";
+                                if (track.artwork_url == null) { track.artwork_url="../img/default-player-artwork.png"; }
+                                $rootScope.$apply(function()
                                 {
-                                    track.playIconState = "play";
-                                    if (track.artwork_url == null) { track.artwork_url="../img/default-player-artwork.png"; }
-                                    $rootScope.$apply(function()
-                                    {
-                                        $rootScope.$broadcast('trackReturned', track);
-                                    });
+                                    $rootScope.$broadcast('trackReturned', track);
                                 });
-                            } else {
-                                //trackInvalid event call was here
-                            }
-                        });
-                    }
-                });
+                            });
+                        } else {
+                            //trackInvalid event call was here
+                        }
+                    });
+                }
             });
         },
 	//Adds respun track to given profile
@@ -111,6 +126,15 @@ myModule.factory('profileInfo', function($rootScope)
                 if (profiles[i].username == username) { index = i; }
             }
             profiles[index].trackIDs.push(trackID);
+        },
+
+        likeTrack: function(username, track)
+        {
+            var usernames = _.pluck(profiles, 'username');
+            var index = _.indexOf(usernames, username);
+            var likedTrackIDs = _.pluck(profiles[index].likedTracks, 'id');
+            if (!_.contains(likedTrackIDs, track.id)) { profiles[index].likedTracks.push(track); }
         }
     };
 });
+

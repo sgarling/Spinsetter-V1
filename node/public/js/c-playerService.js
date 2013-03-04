@@ -145,7 +145,7 @@ myModule.factory('playerService', function($rootScope)
           currentSound.stop();
           playing = false;
         }
-        SC.stream("/tracks/" + track.id, function(audio)
+        SC.stream('/tracks/' + track.id, function(audio)
         {
           currentSound = audio;
           currentTrack = track;

@@ -6,6 +6,102 @@ li {
 	list-style-type: none;
 }
 
+.clear {
+	clear: both;
+}
+
+/* Nav Bar Styles */
+
+.nav-bar {
+	position: absolute;
+	top: 0;
+	left: 0;
+	background: #fff;
+	width: 100%;
+	height: 50px;
+	box-shadow: 0 4px 3px #A6A6A6;
+	-webkit-box-shadow: 0 4px 3px #A6A6A6;
+	-moz-box-shadow: 0 4px 3px #A6A6A6;
+}
+
+.nav-bar .nav-logo {
+	float: left;
+	width: 229px;
+	height: inherit;
+	border-right: 2px solid #DADADA;
+}
+
+.nav-bar .nav-logo img {
+	width: 194px;
+	height: 27px;
+	margin-top: 11.5px;
+	margin-left: 17.5px;
+}
+
+.nav-bar .nav-following {
+	float: left;
+	width: 134px;
+	height: inherit;
+	border-right: 2px solid #DADADA;
+}
+
+.nav-bar .nav-blogs {
+	float: left;
+	width: 95px;
+	height: inherit;
+	border-right: 2px solid #DADADA;
+}
+
+.nav-bar .nav-genres {
+	float: left;
+	width: 99px;
+	height: inherit;
+	border-right: 2px solid #DADADA;
+	margin-right: 327px;
+}
+
+.nav-bar .nav-player-ctrls {
+	float: left;
+	width: 151px;
+	height: inherit;
+	border-right: 2px solid #DADADA;
+	border-left: 2px solid #DADADA;
+}
+
+.nav-bar .nav-player-ctrls .player-skip-back {
+	float: left;
+	width: 32px;
+	height: 22px;
+	margin: 14px 0 0 22px;	
+}
+
+.nav-bar .nav-player-ctrls .player-play {
+	float: left;
+	width: 19px;
+	height: 22px;
+	margin: 14px 0 0 13px;
+}
+
+.nav-bar .nav-player-ctrls .player-skip-fwd {
+	float: left;
+	width: 32px;
+	height: 22px;
+	margin: 14px 0 0 12px;
+}
+
+.nav-bar .nav-profile {
+	float: left;
+	width: 73px;
+	height: inherit;
+}
+
+.nav-bar .nav-profile img {
+	display: inline;
+	width: 28px;
+	height: 28px;
+	margin: 11px 0 0 22.5px;
+}
+
 .track-artwork {
 	width: 100px;
 	height: 100px;
