@@ -1,21 +1,22 @@
-<div ng-click="viewLikedPlaylist()">See {{profile.username}}'s likes</div>
 <br />
-<ul class="song-card-container" ui:sortable="sortableOptions" ng-model="tracks">
-	<li class="song-card" ng-repeat="track in tracks">
-		<div class="card-buttons-top">
-			<div class="card-handle"><img src="../img/drag-icon.png" alt="drag" /></div> 
-			<div class="card-delete" ng-click="deleteCard(track)"><img src="../img/delete-icon.png" /></div>
-		</div>
-		<div class="song-title">{{track.title}}</div>
-		<div class="song-artist">{{track.user.username}}</div>
-		<div class="song-artwork" ng-click="playFromCard(track)">
-			<img ng-src="{{track.artwork_url}}">
-			<div class="card-play-pause"><img ng-src="../img/card-{{track.playIconState}}-icon.png" /></div>
-		</div>
-		<div class="card-buttons-bot">
-			<div class="sc-link"><a target="_blank" ng-href="{{track.permalink_url}}"><img src="../img/soundcloud-logo.png"></a></div>
-			<div class="song-respin" ng-click="reSpin(track)"><img src="../img/respin.png"</div>
-		</div>
-		<div ng-click="like(track)">Like</div>
-	</li>
-</ul>
+<div ng-controller="StreamCtrl">
+	<ul class="song-card-container" ui:sortable="sortableOptions" ng-model="profile.streamTracks">
+		<li class="song-card" ng-repeat="track in profile.streamTracks">
+			<div class="card-buttons-top">
+				<div class="card-handle"><img src="../img/drag-icon.png" alt="drag" /></div> 
+				<div class="card-delete" ng-click="deleteCard(track, 'stream')"><img src="../img/delete-icon.png" /></div>
+			</div>
+			<div class="song-title">{{track.title}}</div>
+			<div class="song-artist">{{track.user.username}}</div>
+			<div class="song-artwork" ng-click="playFromCard(track)">
+				<img ng-src="{{track.artwork_url}}">
+				<div class="card-play-pause"><img ng-src="../img/card-{{track.playIconState}}-icon.png" /></div>
+			</div>
+			<div class="card-buttons-bot">
+				<div class="sc-link"><a target="_blank" ng-href="{{track.permalink_url}}"><img src="../img/soundcloud-logo.png"></a></div>
+				<div class="song-respin" ng-click="reSpin(track)"><img src="../img/respin.png"</div>
+			</div>
+			<div ng-click="like(track)">Like</div>
+		</li>
+	</ul>
+</div>

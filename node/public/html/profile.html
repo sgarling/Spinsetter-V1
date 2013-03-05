@@ -1,3 +1,10 @@
 <hr />
 <h1>{{profile.username}}</h1>
+<div class="profile-nav">
+	<div class="profile-stream" ng-click="viewStream()">Stream ({{profile.streamTracks.length}})</div>
+	<div class="profile-followers">Followers</div>
+	<div class="profile-following">Following</div>
+	<div class="profile-liked" ng-click="viewLikes()">Liked Tracks ({{profile.likedTracks.length}})</div>
+</div>
+<div ng-click="printTrackList()">PRINT IT</div>
 <div ng-include src="template.url"></div>

@@ -1,9 +1,21 @@
+body {
+	width: 100%;
+	font-size: 62.5%;
+}
+
 img {
 	max-width: 100%;
 }
 
 li {
 	list-style-type: none;
+}
+
+.container {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
 }
 
 .clear {
@@ -13,9 +25,6 @@ li {
 /* Nav Bar Styles */
 
 .nav-bar {
-	position: absolute;
-	top: 0;
-	left: 0;
 	background: #fff;
 	width: 100%;
 	height: 50px;
@@ -32,10 +41,9 @@ li {
 }
 
 .nav-bar .nav-logo img {
-	width: 194px;
-	height: 27px;
-	margin-top: 11.5px;
-	margin-left: 17.5px;
+	width: 196px;
+	padding-top: 11.5px;
+	padding-left: 16.5px;
 }
 
 .nav-bar .nav-following {
@@ -43,6 +51,9 @@ li {
 	width: 134px;
 	height: inherit;
 	border-right: 2px solid #DADADA;
+	font-size: 1.4em;
+	text-align: center;
+	line-height: 50px;
 }
 
 .nav-bar .nav-blogs {
@@ -50,6 +61,9 @@ li {
 	width: 95px;
 	height: inherit;
 	border-right: 2px solid #DADADA;
+	font-size: 1.4em;
+	text-align: center;
+	line-height: 50px;
 }
 
 .nav-bar .nav-genres {
@@ -57,11 +71,13 @@ li {
 	width: 99px;
 	height: inherit;
 	border-right: 2px solid #DADADA;
-	margin-right: 327px;
+	font-size: 1.4em;
+	text-align: center;
+	line-height: 50px;
 }
 
 .nav-bar .nav-player-ctrls {
-	float: left;
+	float: right;
 	width: 151px;
 	height: inherit;
 	border-right: 2px solid #DADADA;
@@ -69,34 +85,36 @@ li {
 }
 
 .nav-bar .nav-player-ctrls .player-skip-back {
-	float: left;
+	float: right;
 	width: 32px;
 	height: 22px;
-	margin: 14px 0 0 22px;	
+	margin-top: 14px;
+	margin-right: 14px;
 }
 
 .nav-bar .nav-player-ctrls .player-play {
-	float: left;
+	float: right;
 	width: 19px;
 	height: 22px;
-	margin: 14px 0 0 13px;
+	margin-top: 14px;
+	margin-right: 12px;
 }
 
 .nav-bar .nav-player-ctrls .player-skip-fwd {
-	float: left;
+	float: right;
 	width: 32px;
 	height: 22px;
-	margin: 14px 0 0 12px;
+	margin-top: 14px;
+	margin-right: 21px;
 }
 
 .nav-bar .nav-profile {
-	float: left;
+	float: right;
 	width: 73px;
 	height: inherit;
 }
 
 .nav-bar .nav-profile img {
-	display: inline;
 	width: 28px;
 	height: 28px;
 	margin: 11px 0 0 22.5px;
@@ -122,6 +140,12 @@ li {
 .song-progress {
 	height:17px;
 	background:blue;
+}
+
+/* Song Card Styles */
+
+.song-card-container {
+	width: 100%;
 }
 
 .song-card {

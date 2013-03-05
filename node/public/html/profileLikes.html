@@ -3,7 +3,7 @@
 	<li class="song-card" ng-repeat="track in profile.likedTracks">
 		<div class="card-buttons-top">
 			<div class="card-handle"><img src="../img/drag-icon.png" alt="drag" /></div> 
-			<div class="card-delete" ng-click="deleteCard(track)"><img src="../img/delete-icon.png" /></div>
+			<div class="card-delete" ng-click="deleteCard(track, 'likes')"><img src="../img/delete-icon.png" /></div>
 		</div>
 		<div class="song-title">{{track.title}}</div>
 		<div class="song-artist">{{track.user.username}}</div>

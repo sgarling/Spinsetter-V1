@@ -1,6 +1,5 @@
 <!doctype html>
 <html ng-app="ddPlayer">
-
   <head>
     <script src="//connect.soundcloud.com/sdk.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
@@ -16,59 +15,63 @@
     <script type="text/javascript" src="js/c-profileInfo.js"></script>
     <script type="text/javascript" src="js/c-loggedUser.js"></script>
     <script type="text/javascript" src="js/jquery-ui-1.10.1.js"></script>
+    <script type="text/javascript" src="js/c-stream.js"></script>
     <link rel="stylesheet" href="css/style.css">
   </head>
 
   <body>
-    <div class="nav-bar">
-      <div class="nav-logo"><img src="../img/spin-logo.png" /></div>
-      <div class="nav-following"></div>
-      <div class="nav-blogs"></div>
-      <div class="nav-genres"></div>
-      <div ng-controller="PlayerCtrl" class="nav-player-ctrls">
-        <img class="player-skip-back" src="../img/player-skip-back.png" ng-click="skipBack()" />
-	<img class="player-play" src="../img/player-play.png" ng-click="play()" />
-	<img class="player-skip-fwd" src="../img/player-skip-fwd.png" ng-click="skipFwd()" />
+    <div class="container">
+      <div class="nav-bar">
+        <div class="nav-logo"><img src="../img/spin-logo.png" /></div>
+        <div class="nav-following">FOLLOWING</div>
+        <div class="nav-blogs">BLOGS</div>
+        <div class="nav-genres">GENRES</div>
+        <div class="nav-profile">
+          <img src="../img/profile-placeholder.png" />
+        </div>
+        <div ng-controller="PlayerCtrl" class="nav-player-ctrls">
+          <img class="player-skip-fwd" src="../img/player-skip-fwd.png" ng-click="skipFwd()" />
+          <img class="player-play" src="../img/player-play.png" ng-click="play()" />
+          <img class="player-skip-back" src="../img/player-skip-back.png" ng-click="skipBack()" />
+        </div>
+        <div class="clear"></div>
       </div>
-      <div class="nav-profile">
-        <img src="../img/profile-placeholder.png" />
-      </div>
-      <div class="clear"></div>
-    </div>
-    <div ng-controller="PlayerCtrl">
-      <h2>Custom Player for Spinsetter by Danny Dalton</h2>
-      <div class="track-info">
-        <div class="track-username"><h3>{{currentTrack.user.username}}</h3></div>
-        <div class="track-title"><h4>{{currentTrack.title}}</h4></div>
-        <div class="track-artwork"><img ng-src="{{currentTrack.artwork_url}}"></div>
-        <div class="song-progress-wrapper">
+
+      <div ng-controller="PlayerCtrl" class="temp-player">
+        <h2>Custom Player for Spinsetter by Danny Dalton</h2>
+        <div class="track-info">
+          <div class="track-username"><h3>{{currentTrack.user.username}}</h3></div>
+          <div class="track-title"><h4>{{currentTrack.title}}</h4></div>
+          <div class="track-artwork"><img ng-src="{{currentTrack.artwork_url}}"></div>
+          <div class="song-progress-wrapper">
           <div class="song-progress" style="width: {{currentPos}}px"></div>
         </div>
       </div>
-      <br>
+  <br>
 
-      <div class="player-controls">
-        <div class="first-player-control" ng-click="skipBack()">SkipBack</div>
-        <div ng-click="rewind()">Rewind</div>
-        <div ng-click="play()">Play</div>
-        <div ng-click="pause()">Pause</div>
-        <div ng-click="ffwd()">FFW</div>
-        <div ng-click="skipFwd()">Skip Fwd</div>
+  <div class="player-controls">
+    <div class="first-player-control" ng-click="skipBack()">SkipBack</div>
+    <div ng-click="rewind()">Rewind</div>
+    <div ng-click="play()">Play</div>
+    <div ng-click="pause()">Pause</div>
+    <div ng-click="ffwd()">FFW</div>
+    <div ng-click="skipFwd()">Skip Fwd</div>
+  </div>
+</div>
+    
+      <br />
+
+      <div ng-controller="PageViewCtrl">
+        <hr />
+        <h4>Pages:</h3>
+        <div class="homepage"><a href="/">Home</a></div>
+        <div ng-repeat="profile in profiles">
+          <a ng-href="/profile/{{profile.username}}">{{profile.username}}</a>
+        </div>
+        <hr />
+        <div ng-view></div>
       </div>
     </div>
-    <br />
-
-    <div ng-controller="PageViewCtrl">
-      <hr />
-      <h4>Pages:</h3>
-      <div class="homepage"><a href="/">Home</a></div>
-      <div ng-repeat="profile in profiles">
-        <a ng-href="/profile/{{profile.username}}">{{profile.username}}</a>
-      </div>
-      <hr />
-      <div ng-view></div>
-      <div>
-
   </body>
-
+  
 </html>
