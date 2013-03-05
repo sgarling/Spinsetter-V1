@@ -50,4 +50,5 @@ myModule.controller('ProfileCtrl', ['$scope', '$routeParams', 'profileInfo', 'pl
 myModule.controller('HomeCtrl', ['$scope', '$routeParams', 'profileInfo', 'playerService', function($scope, $routeParams, profileInfo, playerService)
 {
   $scope.name = "HomeCtrl";
+  $scope.list = [1, 2, 3, 4, 6, 7, 8, 9, 20];
 }]);
