@@ -7,33 +7,59 @@ myModule.factory('profileInfo', function($rootScope)
 
     // static profiles
     var profiles = [
-        {username: "Danny", tracksInfo: [74494996, 294, 75868018, 74421378] },
-        {username: "Josh", tracksInfo: [75237140, 74913382, 74432728] },
-        {username: "Samora", tracksInfo:[74494996, 294, 75868018, 74421378, 75237140, 74913382, 74432728]}];
+        {username: "Danny", tracksInfo: [74494996, 294, 75868018, 74421378], streamTracks: [], likedTracks: [], playlists: [] },
+        {username: "Josh", tracksInfo: [75237140, 74913382, 74432728], streamTracks: [], likedTracks: [], playlists: [] },
+        {username: "Samora", tracksInfo:[74494996, 294, 75868018, 74421378, 75237140, 74913382, 74432728], streamTracks: [], likedTracks: [], playlists: [] } ];
 
     var socket = io.connect();
-/*    socket.on('tracks', function (data)
-    {
-        trackIDs = data;
-        for(var i = 0; i < trackIDs.length; i++)
-            { trackIDs[i] = parseInt(trackIDs[i], 10); }
-        console.log('Data updated');
-        console.log(data);
-        profiles = [
-            {username: "Danny", trackIDs: angular.copy(trackIDs)},
-            {username: "Josh", trackIDs: angular.copy(trackIDs)},
-            {username: "Samora", trackIDs: angular.copy(trackIDs)}];
-    }); */
     
     socket.on('tracks', function (data)
     {
-        tracksInfo = data;
+        var tracksInfo = data;
         console.log('Data updated');
         console.log(data);
-        profiles = [
-            {username: "Danny", tracksInfo: angular.copy(tracksInfo), likedTracks: [] },
-            {username: "Josh", tracksInfo: angular.copy(tracksInfo), likedTracks: [] },
-            {username: "Samora", tracksInfo: angular.copy(tracksInfo), likedTracks: [] }];
+        var tracks = [];
+
+        _.each(tracksInfo, function(trackInfo)
+        {
+            if (trackInfo.resource == "tracks")
+            {
+                SC.get("/tracks/" + trackInfo.id, function(track)
+                {
+                    if (track.title != null)
+                    {
+                        track.playIconState = "play";
+                        if (track.artwork_url == null) { track.artwork_url="../img/default-player-artwork.png"; }
+                        _.each(profiles, function(profile)
+                        {
+                            var trackIDs = _.pluck(profile.streamTracks, 'id');
+                            if (!_.contains(trackIDs, track.id)) { profile.streamTracks.push(track); }
+                        });
+                    }
+                });
+            } else if (trackInfo.resource == "playlists") {
+                SC.get("/playlists/" + trackInfo.id, function(playlist)
+                {
+                    if (playlist.tracks != null)
+                    {
+                        _.each(playlist.tracks, function(track)
+                        {
+                            track.playIconState = "play";
+                            if (track.artwork_url == null) { track.artwork_url="../img/default-player-artwork.png"; }
+                            _.each(profiles, function(profile)
+                            {
+                                var trackIDs = _.pluck(profile.streamTracks, 'id');
+                                if (!_.contains(trackIDs, track.id)) { profile.streamTracks.push(track); }
+                            });
+                        });
+                    }
+                });
+            }
+        });
+        _.each(profiles, function(profile)
+        {
+            profile.tracksInfo = angular.copy(tracksInfo);
+        });
     });
     
     // replaces 100x100px soundcloud artwork url with the 500x500px artwork url
@@ -125,7 +151,8 @@ myModule.factory('profileInfo', function($rootScope)
             {
                 if (profiles[i].username == username) { index = i; }
             }
-            profiles[index].trackIDs.push(trackID);
+            var trackInfo = { resource: "tracks", id: trackID };
+            profiles[index].tracksInfo.push(trackInfo);
         },
 
         likeTrack: function(username, track)

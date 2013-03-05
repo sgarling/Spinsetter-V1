@@ -9,44 +9,6 @@ myModule.factory('playerService', function($rootScope)
     else { this.$apply(fn); }
   };
 
-  //Event logic
-  /*
-   * Callback for 'profileChange' event
-   * -----------------------------------
-   * Resets the track list so the correct tracks are displayed on each profile.
-   * Also sets the trackIndex to -1 so if the user clicks skipFwd on the player
-   * after switching to a new profile that it skips to the first track in the new profile,
-   * or if the user clicks skipBack it skips to the last track in the new profile.
-   */
-  $rootScope.$on('profileChange', function()
-  {
-    trackList = [];
-    trackIndex = -1;
-  });
-
-  /*
-   * The events 'trackCreated' and 'trackDeleted' are trigger when the player cards are dragged and
-   * dropped. This updates the player so that the player will play the tracks in the new order.
-   */
-  $rootScope.$on('trackCreated', function(event, track, index)
-  {
-    trackList.splice(index, 0, track);
-    if (track === currentTrack)
-    {
-      trackIndex = index;
-      console.log("playing track now at index " + trackIndex);
-    } else {
-      trackIndex = _.indexOf(trackList, currentTrack);
-      console.log("playing track now at index " + trackIndex);
-    }
-  });
-
-  $rootScope.$on('trackRemoved', function(event, track, index)
-  {
-    trackList.splice(index, 1);
-    console.log("track removed");
-  });
-
   /*
    * This click listener allows the user to click on the song progress bar to
    * change the position in the currently playing track.
@@ -64,10 +26,12 @@ myModule.factory('playerService', function($rootScope)
   $rootScope.currentPos = 0;
 
   var autoPlay = false;
-  var trackIndex = 0;
   var playing = false;
 
+  var playlist = '';
   var trackList = [];
+  var trackIndex = 0;
+
   var currentTrack = null;
   var currentSound = null;
   var currentPos = 0;
@@ -77,6 +41,13 @@ myModule.factory('playerService', function($rootScope)
     getCurrentTrack: function()
     {
       return currentTrack;
+    },
+
+    //Setters
+    setTrackList: function(tracks)
+    {
+      trackList = tracks;
+      //console.log(trackList);
     },
 
     //Player Control Logic || playFromPlayer could be made cleaner. call playPauseTrack(trackList[0], 0)
