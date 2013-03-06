@@ -142,17 +142,18 @@ myModule.factory('profileInfo', function($rootScope)
                 }
             });
         },
-	//Adds respun track to given profile
-	//Need to check for duplicate tracks in future implementations
-        addTrack: function(username, trackID)
+	   //Adds respun track to given profile
+	   //Need to check for duplicate tracks in future implementations
+        addTrackToStream: function(username, track)
         {
             var index = 0;
             for (var i = 0; i < profiles.length; i++)
             {
                 if (profiles[i].username == username) { index = i; }
             }
-            var trackInfo = { resource: "tracks", id: trackID };
-            profiles[index].tracksInfo.push(trackInfo);
+            //var trackInfo = { resource: "tracks", id: trackID };
+            //profiles[index].tracksInfo.push(trackInfo);
+            profiles[index].streamTracks.push(track);
         },
 
         likeTrack: function(username, track)

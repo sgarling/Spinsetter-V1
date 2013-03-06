@@ -15,7 +15,7 @@ myModule.controller('PageViewCtrl', ['$scope', '$route', '$routeParams', '$locat
  * Controller for individual profile pages. Contains all information necessary to
  * correctly display and update a profile page.
  */
-myModule.controller('ProfileCtrl', ['$scope', '$routeParams', 'profileInfo', 'playerService', 'loggedUserService', function($scope, $routeParams, profileInfo, playerService, loggedUserService)
+myModule.controller('ProfileCtrl', ['$scope', '$routeParams', 'profileInfo', 'loggedUserService', function($scope, $routeParams, profileInfo, loggedUserService)
 {
 
   $scope.profile = profileInfo.getProfile($routeParams.username);
@@ -32,22 +32,23 @@ myModule.controller('ProfileCtrl', ['$scope', '$routeParams', 'profileInfo', 'pl
   $scope.reSpin = function(track)
   {
     var curUser = loggedUserService.getUsername();
-    profileInfo.addTrack(curUser, track.id);
+    profileInfo.addTrackToStream(curUser, track);
   };
 
   $scope.viewLikes = function() { $scope.template = { name: 'profileLikes', url: '/html/profileLikes.html' }; };
   $scope.viewSpinsets = function() { $scope.template = { name: 'profileSpinsets', url: '/html/profileSpinsets.html' }; };
   $scope.viewStream = function() { $scope.template = { name: 'profileStream', url: '/html/profileStream.html' }; };
 
-  $scope.printTrackList = function()
+  //.song-card(s) can only be dragged by the .card-handle div
+  $scope.sortableOptions =
   {
-    console.log($scope.profile.streamTracks);
+    handle: '.card-handle'
   };
 
 
 }]);
 
-myModule.controller('HomeCtrl', ['$scope', '$routeParams', 'profileInfo', 'playerService', function($scope, $routeParams, profileInfo, playerService)
+myModule.controller('HomeCtrl', ['$scope', '$routeParams', 'profileInfo', function($scope, $routeParams, profileInfo)
 {
   $scope.name = "HomeCtrl";
   $scope.list = [1, 2, 3, 4, 6, 7, 8, 9, 20];

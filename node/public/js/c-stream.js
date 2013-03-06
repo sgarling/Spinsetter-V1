@@ -2,6 +2,12 @@ myModule.controller('StreamCtrl', ['$scope', 'profileInfo', 'playerService', 'lo
 {
 	playerService.setTrackList($scope.profile.streamTracks);
 
+	_.observe($scope.profile.streamTracks, 'create', function(track, index)
+	{
+ 		playerService.setTrackList($scope.profile.streamTracks);
+ 		playerService.updateTrackIndex();
+	});
+
 	//Controls play/pause from each card
 	$scope.playFromCard = function(track)
 	{
@@ -20,12 +26,6 @@ myModule.controller('StreamCtrl', ['$scope', 'profileInfo', 'playerService', 'lo
 		var trackIDs = _.pluck($scope.profile.streamTracks, 'id');
 		var trackIndex = _.indexOf(trackIDs, track.id);
 		$scope.profile.streamTracks.splice(trackIndex, 1);
- 	};
-
- 	//.song-card(s) can only be dragged by the .card-handle div
- 	$scope.sortableOptions =
- 	{
- 		handle: '.card-handle'
  	};
 
 }]);

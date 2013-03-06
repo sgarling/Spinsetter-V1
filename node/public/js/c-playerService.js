@@ -50,6 +50,14 @@ myModule.factory('playerService', function($rootScope)
       //console.log(trackList);
     },
 
+    updateTrackIndex: function()
+    {
+      if (currentTrack != null) { 
+        trackIndex = _.indexOf(trackList, currentTrack); 
+        console.log("playing track at index " + trackIndex);
+      }
+    },
+
     //Player Control Logic || playFromPlayer could be made cleaner. call playPauseTrack(trackList[0], 0)
     playFromPlayer: function()
     {
