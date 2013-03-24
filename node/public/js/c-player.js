@@ -76,7 +76,7 @@ myModule.controller('PlayerCtrl', ['$scope', 'profileInfo', 'playerService', fun
   {
     keys[e.keyCode] = true;
     console.log(e.keyCode);
-    if (e.keyCode == 32) //Spacebar
+   /* if (e.keyCode == 32) //Spacebar
     {
       e.preventDefault();
       $scope.play();
@@ -84,7 +84,7 @@ myModule.controller('PlayerCtrl', ['$scope', 'profileInfo', 'playerService', fun
       $scope.ffwd();
     } else if (e.keyCode == 37 && !keys[91]) { //Left Arrow Key w/o cmd key
       $scope.rewind();
-    }
+    } */
   });
 
   $(document).keyup(function (e)

@@ -51,5 +51,4 @@ myModule.controller('ProfileCtrl', ['$scope', '$routeParams', 'profileInfo', 'lo
 myModule.controller('HomeCtrl', ['$scope', '$routeParams', 'profileInfo', function($scope, $routeParams, profileInfo)
 {
   $scope.name = "HomeCtrl";
-  $scope.list = [1, 2, 3, 4, 6, 7, 8, 9, 20];
 }]);

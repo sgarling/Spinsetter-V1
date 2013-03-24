@@ -16,6 +16,11 @@ app.get('/', function (req, res)
     {
         res.sendfile(__dirname + '/client/index.html');
     });
+app.get('/:name', function(req, res) 
+	{
+	res.sendfile(__dirname + '/public/html/' + req.params.name);
+	});
+
 
 // Server
 server.listen(8000);

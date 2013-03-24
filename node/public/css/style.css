@@ -1,6 +1,8 @@
 body {
 	width: 100%;
 	font-size: 62.5%;
+	color: rgb(38, 48, 56);
+	background: rgb(221, 221, 221);
 }
 
 img {
@@ -25,121 +27,187 @@ li {
 /* Nav Bar Styles */
 
 .nav-bar {
-	background: #fff;
-	width: 100%;
 	height: 50px;
-	box-shadow: 0 4px 3px #A6A6A6;
-	-webkit-box-shadow: 0 4px 3px #A6A6A6;
-	-moz-box-shadow: 0 4px 3px #A6A6A6;
+	width: 1200px;
+	box-shadow: rgb(166, 166, 166) 0px 4px 3px 0px;
+	-webkit-box-shadow: rgb(166, 166, 166) 0px 4px 3px 0px;
+	-moz-box-shadow: rgb(166, 166, 166) 0px 4px 3px 0px;
+	background: rgb(255, 255, 255);
+	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+   	font-weight: 300;
+   	font-size: 2em;
+   	text-align: center;
+   	line-height: 50px;
 }
 
-.nav-bar .nav-logo {
+.nav-bar .logo {
+	background: url("/img/svg/spin-logo.svg") no-repeat;
+	background-size: 272.5px;
+	background-position: center;
+	border-right-style: solid;
+	border-right-width: 0;
 	float: left;
-	width: 229px;
 	height: inherit;
-	border-right: 2px solid #DADADA;
+	width: 282.5px;
 }
 
-.nav-bar .nav-logo img {
-	width: 196px;
-	padding-top: 11.5px;
-	padding-left: 16.5px;
-}
-
-.nav-bar .nav-following {
+.nav-bar .following-btn {
+	border-left: 2px solid rgb(218, 218, 218);
+	border-right: 2px solid rgb(218, 218, 218);
 	float: left;
-	width: 134px;
 	height: inherit;
-	border-right: 2px solid #DADADA;
-	font-size: 1.4em;
-	text-align: center;
-	line-height: 50px;
+	width: 125px;
 }
 
-.nav-bar .nav-blogs {
+.nav-bar .blogs-btn {
+	border-right: 2px solid rgb(218, 218, 218);
 	float: left;
-	width: 95px;
 	height: inherit;
-	border-right: 2px solid #DADADA;
-	font-size: 1.4em;
-	text-align: center;
-	line-height: 50px;
+	width: 98px;
 }
 
-.nav-bar .nav-genres {
+.nav-bar .genres-btn {
+	border-right: 2px solid rgb(218, 218, 218);
 	float: left;
-	width: 99px;
 	height: inherit;
-	border-right: 2px solid #DADADA;
-	font-size: 1.4em;
-	text-align: center;
-	line-height: 50px;
+	width: 89px;
 }
 
-.nav-bar .nav-player-ctrls {
-	float: right;
-	width: 151px;
+.nav-bar .popular-btn {
+	border-right: 2px solid rgb(218, 218, 218);
+	float: left;
 	height: inherit;
-	border-right: 2px solid #DADADA;
-	border-left: 2px solid #DADADA;
+	width: 98px;
 }
 
-.nav-bar .nav-player-ctrls .player-skip-back {
-	float: right;
-	width: 32px;
-	height: 22px;
-	margin-top: 14px;
-	margin-right: 14px;
+.nav-bar .following-btn:hover, .nav-bar .blogs-btn:hover, .nav-bar .genres-btn:hover, .nav-bar .popular-btn:hover {
+	color: rgb(188, 58, 39);
+	cursor: pointer;
 }
 
-.nav-bar .nav-player-ctrls .player-play {
-	float: right;
-	width: 19px;
-	height: 22px;
-	margin-top: 14px;
-	margin-right: 12px;
-}
-
-.nav-bar .nav-player-ctrls .player-skip-fwd {
-	float: right;
-	width: 32px;
-	height: 22px;
-	margin-top: 14px;
-	margin-right: 21px;
-}
-
-.nav-bar .nav-profile {
-	float: right;
-	width: 73px;
+.nav-bar .search-input {
+	float: left;
 	height: inherit;
+	width: 163px;
 }
 
-.nav-bar .nav-profile img {
-	width: 28px;
-	height: 28px;
-	margin: 11px 0 0 22.5px;
+.nav-bar .search-input input[type=text] {
+	float: right;
+	width: 0px;
+	background: rgb(218, 218, 218);
+	border: none;
+	margin: none;
+	padding: 0 0 0 0px;
+	height: 50px;
+	transition: width 1.5s;
+	-moz-transition: width 1.5s;
+	-webkit-transition: width 1.5s;
 }
 
-.track-artwork {
-	width: 100px;
-	height: 100px;
-	margin: 0 0 5px 0;
+.nav-bar .search-input input[type=text]:focus {
+	outline: none;
 }
 
-.player-controls > * {
-	float:left;
-	margin: 0px 5px;
+.nav-bar .search-btn {
+	background: url("/img/svg/search.svg") no-repeat;
+	background-size: auto 32px;
+	background-position: center;
+	border-left: 2px solid rgb(218, 218, 218);
+	border-right: 2px solid rgb(218, 218, 218);
+	float: left;
+	height: inherit;
+	width: 50px;
 }
 
-.song-progress-wrapper {
-	width: 200px;
-	height:20px;
-	background:black;
+.nav-bar .search-btn:hover {
+	background: url("/img/svg/search-orange.svg") no-repeat;
+	background-size: auto 32px;
+	background-position: center;
 }
 
-.song-progress {
-	height:17px;
-	background:blue;
+.nav-bar .nav-bar-ctrls {
+	float: left;
+	border-right: 2px solid rgb(218, 218, 218);
+	height: inherit;
+	width: 156px;
+}
+
+.nav-bar .nav-bar-ctrls .rwd-btn {
+	background: url("/img/svg/nav-bar-rwd.svg") no-repeat;
+	background-size: 36px;
+	background-position: center;
+	float: left;
+	width: 52px;
+	height: 50px;
+}
+
+.nav-bar .nav-bar-ctrls .rwd-btn:hover {
+	background: url("/img/svg/nav-bar-rwd-orange.svg") no-repeat;
+	background-size: 36px;
+	background-position: center;
+	cursor: pointer;
+}
+
+.nav-bar .nav-bar-ctrls .play-btn {
+	background: url("/img/svg/nav-bar-play.svg") no-repeat;
+	background-size: 24px;
+	background-position: center;
+	float: left;
+	width: 52px;
+	height: 50px;
+}
+
+.nav-bar .nav-bar-ctrls .play-btn:hover {
+	background: url("/img/svg/nav-bar-play-orange.svg") no-repeat;
+	background-size: 24px;
+	background-position: center;
+	cursor: pointer;
+}
+
+.nav-bar .nav-bar-ctrls .ffwd-btn {
+	background: url("/img/svg/nav-bar-fwd.svg") no-repeat;
+	background-size: 36px;
+	background-position: center;
+	float: left;
+	width: 52px;
+	height: 50px;
+}
+
+.nav-bar .nav-bar-ctrls .ffwd-btn:hover {
+	background: url("/img/svg/nav-bar-fwd-orange.svg") no-repeat;
+	background-size: 36px;
+	background-position: center;
+}
+
+.nav-bar .calendar-btn {
+	background: url("/img/svg/calendar.svg") no-repeat;
+	background-size: auto 34px;
+	background-position: center;
+	float: left;
+	border-right: 2px solid rgb(218, 218, 218);
+	height: inherit;
+	width: 55px;
+}
+
+.nav-bar .calendar-btn:hover {
+	background: url("/img/svg/calendar-orange.svg") no-repeat;
+	background-size: auto 34px;
+	background-position: center;
+}
+
+.nav-bar .profile-btn {
+	background: url("/img/svg/profile-default.svg") no-repeat;
+	background-size: 34px;
+	background-position: center;
+	float: left;
+	height: inherit;
+	width: 65px;
+}
+
+.nav-bar .profile-btn:hover {
+	background: url("/img/svg/profile-default-orange.svg") no-repeat;
+	background-size: 34px;
+	background-position: center;
 }
 
 /* Song Card Styles */
@@ -150,14 +218,18 @@ li {
 
 .song-card {
 	float: left;
-	width: 200px;
+	width: 276px;
 	height: 200px;
-	border: 3px solid #000;
-	margin: 10px 10px;
+	margin: 0 24px 24px 0;
 	padding: 3px;
 	font-size: 14px;
 	white-space: nowrap;
 	overflow: hidden;
+	background: #FFF;
+	border-radius: 6px;
+	-moz-border-radius: 6px;
+	-webkit-border-radius: 6px;
+	box-shadow: rgb(166, 166, 166) 4px 4px 3px 0px;
 }
 
 .song-card .card-buttons-top,
@@ -218,4 +290,12 @@ li {
 
 .song-artwork:hover .card-play-pause {
 	display: block;
+}
+
+/* Profile Nav Styles */
+
+.profile-nav {
+	width: 1200px;
+	height: 75px;
+	background: #fff;
 }

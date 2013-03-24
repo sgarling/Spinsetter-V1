@@ -18,48 +18,31 @@
     <script type="text/javascript" src="js/jquery-ui-1.10.1.js"></script>
     <script type="text/javascript" src="js/c-stream.js"></script>
     <script type="text/javascript" src="js/c-likes.js"></script>
+    <script type="text/javascript" src="js/c-nav.js"></script>
     <link rel="stylesheet" href="css/style.css">
   </head>
 
   <body>
     <div class="container">
-      <div class="nav-bar">
-        <div class="nav-logo"><img src="../img/spin-logo.png" /></div>
-        <div class="nav-following">FOLLOWING</div>
-        <div class="nav-blogs">BLOGS</div>
-        <div class="nav-genres">GENRES</div>
-        <div class="nav-profile">
-          <img src="../img/profile-placeholder.png" />
+      <div class="nav-bar" ng-controller="NavCtrl">
+        <div class="logo"></div>
+        <div class="following-btn">Following</div>
+        <div class="blogs-btn">Blogs</div>
+        <div class="genres-btn">Genres</div>
+        <div class="popular-btn">Popular</div>
+        <div class="search-input"><input type="text" placeholder="Search" ng-model="searchInput"></div>
+        <div class="search-btn" ng-mouseenter="showSearch()" ng-mouseleave="hideSearch()"></div>
+        <div class="nav-bar-ctrls" ng-controller="PlayerCtrl">
+          <div class="rwd-btn" ng-click="skipBack()"></div>
+          <div class="play-btn" ng-click="play()"></div>
+          <div class="ffwd-btn" ng-click="skipFwd()"></div>
         </div>
-        <div ng-controller="PlayerCtrl" class="nav-player-ctrls">
-          <img class="player-skip-fwd" src="../img/player-skip-fwd.png" ng-click="skipFwd()" />
-          <img class="player-play" src="../img/player-play.png" ng-click="play()" />
-          <img class="player-skip-back" src="../img/player-skip-back.png" ng-click="skipBack()" />
+        <div class="calendar-btn">
+          <div class="notification-circle"></div>
         </div>
-        <div class="clear"></div>
+        <div class="profile-btn"></div>
       </div>
-
-      <div ng-controller="PlayerCtrl" class="temp-player">
-        <h2>Custom Player for Spinsetter by Danny Dalton</h2>
-        <div class="track-info">
-          <div class="track-username"><h3>{{currentTrack.user.username}}</h3></div>
-          <div class="track-title"><h4>{{currentTrack.title}}</h4></div>
-          <div class="track-artwork"><img ng-src="{{currentTrack.artwork_url}}"></div>
-          <div class="song-progress-wrapper">
-          <div class="song-progress" style="width: {{currentPos}}px"></div>
-        </div>
-      </div>
-  <br>
-
-  <div class="player-controls">
-    <div class="first-player-control" ng-click="skipBack()">SkipBack</div>
-    <div ng-click="rewind()">Rewind</div>
-    <div ng-click="play()">Play</div>
-    <div ng-click="pause()">Pause</div>
-    <div ng-click="ffwd()">FFW</div>
-    <div ng-click="skipFwd()">Skip Fwd</div>
-  </div>
-</div>
+      <div class="clear"></div>
     
       <br />
 
