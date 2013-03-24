@@ -5,5 +5,5 @@ app = Flask(__name__)
 def launch_page():
     return render_template('launch.html')
 
-    if __name__ == '__main__':
-            app.run()
+if __name__ == '__main__':
+        app.run()
