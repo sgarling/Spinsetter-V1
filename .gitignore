@@ -1,1 +1,5 @@
 node/node_modules/
+vagrant/.vagrant
+vagrant/Cheffile.lock
+vagrant/cookbooks/
+vagrant/tmp/
