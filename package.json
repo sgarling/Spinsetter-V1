@@ -1,0 +1,35 @@
+{
+  "name": "spin",
+  "version": "0.0.1",
+  "description": "music discovery engine",
+  "keywords": [],
+  "homepage": "spinsetter.com",
+  "author": "Spinsetter <team@spinsetter.com>",
+  "contributors": [
+    {
+      "name": "Josh Valdez",
+      "email": "josh@spinsetter.com"
+    },
+    {
+      "name": "Danny Dalton",
+      "email": "danny@spinsetter.com"
+    }
+  ],
+  "repository": {
+  },
+  "dependencies": {
+	"express": ">= 3.0.0",
+        "jsdom": ">= 0.5.4",
+        "feedparser": ">= 0.13.4",
+        "socket.io": ">= 0.9.13",
+        "riakjs": ">= 0.9.4pre3"
+  },
+  "devDependencies": {
+  },
+  "main": "server.js",
+  "engines": {
+    "node": "0.10.x"
+  },
+  "scripts": {
+  }
+}
