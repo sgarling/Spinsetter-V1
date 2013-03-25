@@ -7,9 +7,9 @@ myModule.factory('profileInfo', function($rootScope)
 
     // static profiles
     var profiles = [
-        {username: "Danny", tracksInfo: [74494996, 294, 75868018, 74421378], streamTracks: [74494996, 294, 75868018, 74421378], likedTracks: [], playlists: [], location: "Palo Alto, CA" },
-        {username: "Josh", tracksInfo: [75237140, 74913382, 74432728], streamTracks: [75237140, 74913382, 74432728], likedTracks: [], playlists: [], location: "Palo Alto, CA" },
-        {username: "Samora", tracksInfo:[74494996, 294, 75868018, 74421378, 75237140, 74913382, 74432728], streamTracks: [74494996, 294, 75868018, 74421378, 75237140, 74913382, 74432728], likedTracks: [], playlists: [], location: "Palo Alto, CA" } ];
+        {username: "Danny", tracksInfo: [74494996, 294, 75868018, 74421378], streamTracks: [], likedTracks: [], playlists: [], location: "Palo Alto, CA" },
+        {username: "Josh", tracksInfo: [75237140, 74913382, 74432728], streamTracks: [], likedTracks: [], playlists: [], location: "Palo Alto, CA" },
+        {username: "Samora", tracksInfo:[74494996, 294, 75868018, 74421378, 75237140, 74913382, 74432728], streamTracks: [], likedTracks: [], playlists: [], location: "Palo Alto, CA" } ];
 
     var socket = io.connect();
     
@@ -29,7 +29,11 @@ myModule.factory('profileInfo', function($rootScope)
                     if (track.title != null)
                     {
                         track.playIconState = "play";
-                        if (track.artwork_url == null) { track.artwork_url="../img/default-player-artwork.png"; }
+			track.artwork_url = getEnlargedArtwork(track.artwork_url);
+                        if (track.artwork_url == null)
+			{ 
+				track.artwork_url = "../img/default-player-artwork.png"; 
+			} 
                         _.each(profiles, function(profile)
                         {
                             var trackIDs = _.pluck(profile.streamTracks, 'id');
