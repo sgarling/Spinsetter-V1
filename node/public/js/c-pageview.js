@@ -45,7 +45,6 @@ myModule.controller('ProfileCtrl', ['$scope', '$routeParams', 'profileInfo', 'lo
     handle: '.card-handle'
   };
 
-
 }]);
 
 myModule.controller('HomeCtrl', ['$scope', '$routeParams', 'profileInfo', function($scope, $routeParams, profileInfo)

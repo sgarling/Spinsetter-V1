@@ -1,7 +1,7 @@
 myModule.controller('StreamCtrl', ['$scope', 'profileInfo', 'playerService', 'loggedUserService', function($scope, profileInfo, playerService, loggedUserService)
 {
 	playerService.setTrackList($scope.profile.streamTracks);
-
+	
 	_.observe($scope.profile.streamTracks, 'create', function(track, index)
 	{
  		playerService.setTrackList($scope.profile.streamTracks);
