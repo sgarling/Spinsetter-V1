@@ -7,13 +7,13 @@ myModule.factory('profileInfo', function($rootScope)
 
     // static profiles
     var profiles = [
-        {username: "Danny", tracksInfo: [74494996, 294, 75868018, 74421378], streamTracks: [74494996, 294, 75868018, 74421378], likedTracks: [], playlists: [] },
-        {username: "Josh", tracksInfo: [75237140, 74913382, 74432728], streamTracks: [75237140, 74913382, 74432728], likedTracks: [], playlists: [] },
-        {username: "Samora", tracksInfo:[74494996, 294, 75868018, 74421378, 75237140, 74913382, 74432728], streamTracks: [74494996, 294, 75868018, 74421378, 75237140, 74913382, 74432728], likedTracks: [], playlists: [] } ];
+        {username: "Danny", tracksInfo: [74494996, 294, 75868018, 74421378], streamTracks: [74494996, 294, 75868018, 74421378], likedTracks: [], playlists: [], location: "Palo Alto, CA" },
+        {username: "Josh", tracksInfo: [75237140, 74913382, 74432728], streamTracks: [75237140, 74913382, 74432728], likedTracks: [], playlists: [], location: "Palo Alto, CA" },
+        {username: "Samora", tracksInfo:[74494996, 294, 75868018, 74421378, 75237140, 74913382, 74432728], streamTracks: [74494996, 294, 75868018, 74421378, 75237140, 74913382, 74432728], likedTracks: [], playlists: [], location: "Palo Alto, CA" } ];
 
     var socket = io.connect();
     
-/*    socket.on('tracks', function (data)
+    socket.on('tracks', function (data)
     {
         var tracksInfo = data;
         console.log('Data updated');
@@ -60,7 +60,7 @@ myModule.factory('profileInfo', function($rootScope)
         {
             profile.tracksInfo = angular.copy(tracksInfo);
         });
-    }); */
+    }); 
     
     // replaces 100x100px soundcloud artwork url with the 500x500px artwork url
     function getEnlargedArtwork(artwork_url)

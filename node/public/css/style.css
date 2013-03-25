@@ -3,6 +3,7 @@ body {
 	font-size: 62.5%;
 	color: rgb(38, 48, 56);
 	background: rgb(221, 221, 221);
+	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
 }
 
 img {
@@ -33,7 +34,6 @@ li {
 	-webkit-box-shadow: rgb(166, 166, 166) 0px 4px 3px 0px;
 	-moz-box-shadow: rgb(166, 166, 166) 0px 4px 3px 0px;
 	background: rgb(255, 255, 255);
-	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
    	font-weight: 300;
    	font-size: 2em;
    	text-align: center;
@@ -44,11 +44,9 @@ li {
 	background: url("/img/svg/spin-logo.svg") no-repeat;
 	background-size: 272.5px;
 	background-position: center;
-	border-right-style: solid;
-	border-right-width: 0;
 	float: left;
 	height: inherit;
-	width: 282.5px;
+	width: 290.5px;
 }
 
 .nav-bar .following-btn {
@@ -56,14 +54,14 @@ li {
 	border-right: 2px solid rgb(218, 218, 218);
 	float: left;
 	height: inherit;
-	width: 125px;
+	width: 120px;
 }
 
 .nav-bar .blogs-btn {
 	border-right: 2px solid rgb(218, 218, 218);
 	float: left;
 	height: inherit;
-	width: 98px;
+	width: 90px;
 }
 
 .nav-bar .genres-btn {
@@ -116,7 +114,7 @@ li {
 	border-right: 2px solid rgb(218, 218, 218);
 	float: left;
 	height: inherit;
-	width: 50px;
+	width: 53px;
 }
 
 .nav-bar .search-btn:hover {
@@ -186,7 +184,7 @@ li {
 	float: left;
 	border-right: 2px solid rgb(218, 218, 218);
 	height: inherit;
-	width: 55px;
+	width: 57px;
 }
 
 .nav-bar .calendar-btn:hover {
@@ -209,6 +207,34 @@ li {
 	background-size: 34px;
 	background-position: center;
 }
+
+.notification-circle {
+	width: 12px;
+	height: 12px;
+	background: #fff;
+	margin: 3px 0 0 33px;
+	border-radius: 10px;
+	border: 2px solid rgb(188, 58, 39);
+	font-size: 0.5em;
+	color: rgb(188, 58, 39);
+}
+
+.notification-circle p {
+	margin: 6px 0 0 0;
+	height: inherit;
+	line-height: 0;
+}
+
+.nav-bar .calendar-btn:hover .notification-circle {
+	border: 2px solid rgb(38, 48, 56);
+	color: rgb(38, 48, 56);
+}
+
+.nav-bar .profile-btn:hover .notification-circle {
+	border: 2px solid rgb(38, 48, 56);
+	color: rgb(38, 48, 56);
+}
+
 
 /* Song Card Styles */
 
@@ -298,4 +324,95 @@ li {
 	width: 1200px;
 	height: 75px;
 	background: #fff;
+	text-align: center;
+}
+
+.profile-nav .user-info {
+	float: left;
+	width: 282.5px;
+	height: inherit;
+	background: url("/img/svg/profile-default.svg") no-repeat;;
+	background-position: 5px 50%;
+	text-align: left;
+}
+
+.profile-nav .user-info .name {
+	font-size:2.5em;
+	margin: 8px 0 0 75px;
+	font-weight: bold;
+}
+
+.profile-nav .user-info .location {
+	font-size: 1.5em;
+	margin: -1px 0 0 76px;
+}
+
+.profile-nav .stream-control {
+	float: right;
+	width: 421px;
+	height: inherit;
+}
+
+.profile-nav .stream-control .posted {
+	float: left;
+	height: inherit;
+	width: 76px;
+	border-right: 2px solidi black;
+}
+
+.profile-nav .stream-control .likes {
+	float: left;
+	height: inherit;
+	width: 70px;
+}
+
+.profile-nav .stream-control .playlists {
+	float: left;
+	height: inherit;
+	width: 85px;
+}
+
+.profile-nav .stream-control .followers {
+	float: left;
+	height: inherit;
+	width: 90px;
+}
+
+.profile-nav .stream-control .following {
+	float: left;
+	height: inherit;
+	width: 100px;
+}
+
+.profile-nav p.type {
+	font-size: 2em;
+	margin: 10px 0 0 0;
+}
+
+.profile-nav p.amount {
+	margin: 0 0 0 0;
+	font-size: 2.5em;
+	font-weight: bold;
+}
+
+.profile-nav .posted:hover, .profile-nav .likes:hover, .profile-nav .playlists:hover, .profile-nav .followers:hover, .profile-nav .following:hover {
+	color: rgb(188, 58, 39);
+	cursor: pointer;
+}
+
+.profile-nav .follow {
+	float: right;
+	width: 120px;
+	height: inherit;
+}
+
+.profile-nav .follow .follow-btn {
+	float: left;
+	margin: 25px 0 0 20px;
+	width: 80px;
+	height: 22px;
+	background: rgb(188, 58, 39);
+	color: #fff;
+	padding-top: 3px;
+	font-size: 1.5em;
 }

@@ -1,9 +1,18 @@
 <hr />
-<h1>{{profile.username}}</h1>
 <div class="profile-nav">
-	<div class="profile-stream" ng-click="viewStream()">Stream ({{profile.streamTracks.length}})</div>
-	<div class="profile-followers">Followers</div>
-	<div class="profile-following">Following</div>
-	<div class="profile-liked" ng-click="viewLikes()">Liked Tracks ({{profile.likedTracks.length}})</div>
+	<div class="user-info">
+		<p class="name">{{profile.username}}</p>
+		<p class="location">{{profile.location}}</p>
+	</div>
+	<div class="follow">
+		<div class="follow-btn">Follow</div>
+	</div>
+	<div class="stream-control">
+		<div class="posted" ng-click="viewStream()"><p class="type">Stream</p><p class="amount">{{profile.streamTracks.length}}</p></div>
+		<div class="likes" ng-click="viewLikes()"><p class="type">Likes</p><p class="amount">{{profile.likedTracks.length}}</p></div>
+		<div class="playlists"><p class="type">Playlists</p><p class="amount">0</p></div>
+		<div class="followers"><p class="type">Followers</p><p class="amount">0</p></div>
+		<div class="following"><p class="type">Following</p><p class="amount">0</p></div>
+	</div>
 </div>
 <div ng-include src="template.url"></div>
