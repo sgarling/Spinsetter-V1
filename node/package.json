@@ -23,7 +23,8 @@
     "feedparser": ">= 0.13.4",
     "socket.io": ">= 0.9.13",
     "riak-js": ">= 0.9.4pre3",
-    "qs": ">= 0.5.5"
+    "qs": ">= 0.5.5",
+    "kue": ">= 0.6.1"
   },
   "devDependencies": {
   },

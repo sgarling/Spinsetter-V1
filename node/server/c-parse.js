@@ -8,8 +8,8 @@ var url = require('url');
 var db = require('riak-js').getClient();
 
 // Regular expressions
-var parseTrack = /\/([0-9]+)/;
-var parseTrack2 = /\/([a-z]+)\/([0-9]+)/;
+var parseTrackID = /\/([0-9]+)/;
+var parseTrackInfo = /\/([a-z]+)\/([0-9]+)/;
 
 // Add track to db
 function addTrack (trackInfo)
@@ -22,6 +22,7 @@ function addTrack (trackInfo)
 // Process feed for track
 function processFeed (article)
 {
+    console.log(article);
     // Use jQuery to select element
     jsdom.env({
       html: article.description,
@@ -42,15 +43,13 @@ function processFeed (article)
             return;
 
         // Parse track id
-        var trackID = parseTrack.exec(uri.url);
-        var trackInfo = parseTrack2.exec(uri.url);
+        var trackID = parseTrackID.exec(uri.url);
+        var trackInfo = parseTrackInfo.exec(uri.url);
 
         if (!trackID)
             return;
 
         // Add track
-        //addTrack(trackID[1]);
-        //console.log(newID[0]);
         addTrack(trackInfo);
       }
     });
@@ -69,15 +68,13 @@ exports.importFeed = function (url, io)
                         if(err) throw err;
                         io.sockets.on('connection', function (socket)
                         {
-			    console.log('booty');
                             var trackList = new Array();
                             tracks.forEach(function (track, i, arr)
                                            {
                                                 trackList.push(track);
                                            }
-                                          );
-
-			    console.log('Emmitting tracks to client');
+                            );
+                            console.log('Emmitting tracks to client');
                             socket.emit('tracks', trackList);
                         });
                     });
