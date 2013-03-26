@@ -243,8 +243,6 @@ li {
 }
 
 .song-card {
-	position: relative;
-	left: -2%;
 	float: left;
 	width: 274px;
 	height: auto;
@@ -288,16 +286,84 @@ li {
 .song-card .buttons {
 	width: 100%;
 	height: 30px;
-	margin-top: 10px;
+	margin-top: 20px;
+	margin-left: 2.5%;
 }
+
+.song-card .buttons .listens {	
+	float: left;
+	height: inherit;
+	font-size: 1.55em;
+	padding-left: 28px;
+	background: url(../img/svg/listens.svg) no-repeat;
+	background-size: auto 60%;
+	background-position: left bottom;
+	line-height: 47px;
+}
+
+
+.song-card .buttons .like-btn {
+	float: left;
+	height: inherit;
+	font-size: 1.55em;
+	padding-left: 26px;
+	margin-left: 10px;
+	background: url(../img/svg/like.svg) no-repeat left bottom;
+	background-size: auto 60%;
+	line-height: 47px;
+}
+
+.song-card .buttons .like-btn:hover {
+	background: url(../img/svg/like-orange.svg) no-repeat left bottom;
+	background-size: auto 60%;
+	cursor: pointer;
+}
+
+.song-card .buttons .comment-btn {
+	float: left;
+	height: inherit;
+	font-size: 1.55em;
+	padding-left: 28px;
+	margin-left: 12px;
+	background: url(../img/svg/comment.svg) no-repeat left bottom;
+	background-size: 58.5% auto;
+	line-height: 47px;
+}
+
+.song-card .buttons .comment-btn:hover {
+	background: url(../img/svg/comment-orange.svg) no-repeat left bottom;
+	background-size: 58.5% auto;
+	cursor: pointer;
+}
+
+.song-card .buttons .respin-btn {
+	float: right;
+	height: inherit;
+	width: 30px;
+	margin-right: 3%;
+	background: url(../img/svg/respin.svg) no-repeat;
+	background-size: 60% auto;
+	background-position: bottom;
+}
+
+.song-card .buttons .respin-btn:hover {
+	background: url(../img/svg/respin-orange.svg) no-repeat bottom;
+	background-size: 60% auto;
+	cursor: pointer;
+}
+
 
 .song-artwork {
 	width: 95%;
 	height: auto;
 	margin: 5px auto;i
 }
+
 .song-artwork .card-play-pause {
-	display: block;
+	display: none;
+	position: absolute;
+	top: 55%;
+	left: 40%;
 	width: 40%;	
 	height: auto;
 	z-index = 1;
@@ -315,6 +381,9 @@ li {
 	height: 75px;
 	background: #fff;
 	text-align: center;
+	box-shadow: rgb(166, 166, 166) 0px 4px 3px 0px; 
+	-moz-box-shadow: rgb(166, 166, 166) 0px 4px 3px 0px;
+	-webkit-box-shadow: rgb(166, 166, 166) 0px 4px 3px 0px;
 }
 
 .profile-nav .user-info {

@@ -1,5 +1,6 @@
-myModule.controller('StreamCtrl', ['$scope', 'profileInfo', 'playerService', 'loggedUserService', function($scope, profileInfo, playerService, loggedUserService)
+myModule.controller('StreamCtrl', ['$scope', '$timeout', 'profileInfo', 'playerService', 'loggedUserService', function($scope, $timeout, profileInfo, playerService, loggedUserService)
 {
+
 	playerService.setTrackList($scope.profile.streamTracks);
 	
 	_.observe($scope.profile.streamTracks, 'create', function(track, index)
@@ -27,5 +28,6 @@ myModule.controller('StreamCtrl', ['$scope', 'profileInfo', 'playerService', 'lo
 		var trackIndex = _.indexOf(trackIDs, track.id);
 		$scope.profile.streamTracks.splice(trackIndex, 1);
  	};
+	
 
 }]);

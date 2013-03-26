@@ -1,17 +1,19 @@
 <br />
 <div ng-controller="StreamCtrl">
-	<ul class="song-card-container" ui:sortable="sortableOptions" ng-model="profile.streamTracks">
-		<li class="song-card" ng-repeat="track in profile.streamTracks">
+	<div class="song-card-container" ss-iso-grid ui:sortable="sortableOptions" ng-model="profile.streamTracks">
+		<div class="song-card" ng-repeat="track in profile.streamTracks" ss-iso-item>
 			<div class="song-title">{{track.title}}</div>
 			<div class="song-artist">{{track.user.username}}</div>
 			<div class="buttons">
-				
+				<div class="listens">2340</div>
+				<div class="like-btn" ng-click="like(track)">0</div>
+				<div class="comment-btn">2</div>	
+				<div class="respin-btn" ng-click="reSpin(track)"></div>
 			</div>
 			<div class="song-artwork" ng-click="playFromCard(track)">
 				<img ng-src="{{track.artwork_url}}">
 				<div class="card-play-pause"><img ng-src="../img/card-{{track.playIconState}}-icon.png" /></div>
 			</div>
-			<div ng-click="like(track)">Like</div>
 		</li>
 	</ul>
 </div>
