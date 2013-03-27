@@ -42,7 +42,9 @@ myModule.factory('playerService', function($rootScope)
     {
       return currentTrack;
     },
-
+    getTrackList: function() {
+      return trackList;
+    },
     //Setters
     setTrackList: function(tracks)
     {

@@ -3,6 +3,7 @@ myModule.controller('StreamCtrl', ['$scope', '$timeout', 'profileInfo', 'playerS
 	
 	playerService.setTrackList($scope.profile.streamTracks);
 	
+	//observe for drag n drop sortable	
 	_.observe($scope.profile.streamTracks, 'create', function(track, index)
 	{
  		playerService.setTrackList($scope.profile.streamTracks);
@@ -12,7 +13,7 @@ myModule.controller('StreamCtrl', ['$scope', '$timeout', 'profileInfo', 'playerS
 	//Controls play/pause from each card
 	$scope.playFromCard = function(track)
 	{
-		var trackIDs = _.pluck($scope.profile.streamTracks, 'id');
+		var trackIDs = _.pluck(playerService.getTrackList(), 'id');
 		var trackIndex = _.indexOf(trackIDs, track.id);
 		var oldTrack = playerService.getCurrentTrack();
 		if (track !== oldTrack && oldTrack !== null) { oldTrack.playIconState = "play"; }
