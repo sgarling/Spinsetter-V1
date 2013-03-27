@@ -3,6 +3,8 @@ var feedparser = require('feedparser');
 var jsdom = require('jsdom');
 var qs = require('qs');
 var url = require('url');
+var kue = require('kue')
+  , jobs = kue.createQueue();
 
 // Database
 var db = require('riak-js').getClient();
@@ -22,15 +24,14 @@ function addTrack (trackInfo)
 // Process feed for track
 function processFeed (article)
 {
-    console.log(article);
     // Use jQuery to select element
     jsdom.env({
       html: article.description,
       scripts: [
         'http://code.jquery.com/jquery-1.5.min.js'
       ],
-      done: function(errors, window) {
-
+      done: function(errors, window)
+      {
         // Grab source
         var $ = window.$;
         var src = $('iframe').attr('src');
@@ -56,7 +57,15 @@ function processFeed (article)
 }
 
 // Read feed into database
-exports.importFeed = function (url, io)
+function importFeed (blog)
+{
+    feedUrl = decodeURIComponent(blog.url);
+    feedparser.parseUrl(feedUrl)
+            .on('article', processFeed);
+};
+
+// Process feeds
+exports.processFeeds = function (blogs, io)
 {
     // Listen for added track and notify iface
     db.registerListener({
@@ -82,7 +91,10 @@ exports.importFeed = function (url, io)
         }
     });
 
-    feedUrl = decodeURIComponent(url);
-    feedparser.parseUrl(feedUrl)
-            .on('article', processFeed);
-};
+  console.log ('Processing feeds');
+  console.log (blogs.length);
+  for (var i = 0; i < blogs.length; i++)
+  {
+    importFeed(blogs[i]);
+  }
+}
