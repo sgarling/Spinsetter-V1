@@ -1,6 +1,6 @@
 myModule.controller('StreamCtrl', ['$scope', '$timeout', 'profileInfo', 'playerService', 'loggedUserService', function($scope, $timeout, profileInfo, playerService, loggedUserService)
 {
-
+	
 	playerService.setTrackList($scope.profile.streamTracks);
 	
 	_.observe($scope.profile.streamTracks, 'create', function(track, index)

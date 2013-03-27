@@ -34,7 +34,7 @@
         <div class="blogs-btn">Blogs</div>
         <div class="genres-btn">Genres</div>
         <div class="popular-btn">Popular</div>
-        <div class="search-input"><input type="text" placeholder="Search" ng-model="searchInput"></div>
+        <div class="search-input" ng-mouseenter="showSearch()" ng-mouseleave="hideSearch()"><input type="text" placeholder="Search" ng-model="searchInput"></div>
         <div class="search-btn" ng-mouseenter="showSearch()" ng-mouseleave="hideSearch()"></div>
         <div class="nav-bar-ctrls" ng-controller="PlayerCtrl">
           <div class="rwd-btn" ng-click="skipBack()"></div>
