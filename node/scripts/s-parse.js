@@ -3,11 +3,12 @@ var feedparser = require('feedparser');
 var jsdom = require('jsdom');
 var qs = require('qs');
 var url = require('url');
-var kue = require('kue')
-  , jobs = kue.createQueue();
 
 // Database
 var db = require('riak-js').getClient();
+
+// Blogs
+var blogs = require('../config/blogs.json');
 
 // Regular expressions
 var parseTrackID = /\/([0-9]+)/;
@@ -65,7 +66,7 @@ function importFeed (blog)
 };
 
 // Process feeds
-exports.processFeeds = function (blogs, io)
+function processFeeds (blogs)
 {
   console.log ('Processing feeds');
   console.log (blogs.length);
@@ -74,3 +75,6 @@ exports.processFeeds = function (blogs, io)
     importFeed(blogs[i]);
   }
 }
+
+// Main code
+processFeeds(blogs);
