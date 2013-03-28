@@ -67,30 +67,6 @@ function importFeed (blog)
 // Process feeds
 exports.processFeeds = function (blogs, io)
 {
-    // Listen for added track and notify iface
-    db.registerListener({
-        "riak.request.end": function(event) {
-            if (event.method.toUpperCase() == 'PUT')
-            {
-                db.getAll('tracks', function (err, tracks, meta)
-                    {
-                        if(err) throw err;
-                        io.sockets.on('connection', function (socket)
-                        {
-                            var trackList = new Array();
-                            tracks.forEach(function (track, i, arr)
-                                           {
-                                                trackList.push(track);
-                                           }
-                            );
-                            console.log('Emmitting tracks to client');
-                            socket.emit('tracks', trackList);
-                        });
-                    });
-            }
-        }
-    });
-
   console.log ('Processing feeds');
   console.log (blogs.length);
   for (var i = 0; i < blogs.length; i++)

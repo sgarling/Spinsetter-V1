@@ -4,11 +4,11 @@ var app = require('express')();
 var server = require('http').createServer(app);
 var io = require('socket.io').listen(server);
 
-// Config files
-var blogs = require('./server/blogs.json')
+// Database
+var db = require('riak-js').getClient();
 
 // Local libraries
-var parse = require('./server/c-parse.js').processFeeds(blogs, io);
+var parse = require('./server/c-blogs.js').registerFeedListener(db, io);
 
 // Config
 app.configure(function()
