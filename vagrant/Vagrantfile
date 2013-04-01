@@ -10,11 +10,11 @@ Vagrant::Config.run do |config|
   # please see the online documentation at vagrantup.com.
 
   # Every Vagrant virtual environment requires a box to build off of.
-  config.vm.box = "precise64"
+  config.vm.box = "precise-2013-02-09"
 
   # The url from where the 'config.vm.box' box will be fetched if it
   # doesn't already exist on the user's system.
-  config.vm.box_url = "http://files.vagrantup.com/precise64.box"
+  config.vm.box_url = "https://s3-us-west-2.amazonaws.com/squishy.vagrant-boxes/precise64_squishy_2013-02-09.box"
 
   # This can be set to the host name you wish the guest machine to have.
   config.vm.host_name = "spin"
@@ -72,6 +72,7 @@ Vagrant::Config.run do |config|
     chef.add_recipe "nodejs::npm"
     chef.add_recipe "vim"
     chef.add_recipe "nginx"
+    chef.add_recipe "git"
     # chef.add_role "web"
 
     chef.json = {
