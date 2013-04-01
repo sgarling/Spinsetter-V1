@@ -38,18 +38,10 @@ myModule.controller('ProfileCtrl', ['$scope', '$routeParams', 'profileInfo', 'lo
   $scope.viewLikes = function() { $scope.template = { name: 'profileLikes', url: '/html/profileLikes.html' }; };
   $scope.viewSpinsets = function() { $scope.template = { name: 'profileSpinsets', url: '/html/profileSpinsets.html' }; };
   $scope.viewStream = function() { $scope.template = { name: 'profileStream', url: '/html/profileStream.html' }; };
-
-  $scope.sortableOptions = {
-        
-        start:  function(event, ui) {            
-                   ui.item.parent().masonry('reload');
-                },
-            change: function(event, ui) {
-                       ui.item.parent().masonry('reload');
-                    },
-        stop:   function(event, ui) { 
-                   ui.item.parent().masonry('reload');
-        }
+  
+  //sort cards. options are 'title' and 'artist' for now
+  $scope.sortBy = function(parameter) {
+    $('.isotope').isotope({ sortBy: 'title' });
   };
 }]);
 

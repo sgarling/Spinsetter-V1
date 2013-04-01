@@ -2,8 +2,14 @@ body {
 	width: 100%;
 	font-size: 62.5%;
 	color: rgb(38, 48, 56);
-	background: rgb(221, 221, 221);
+	background: url(/img/shattered.png);
 	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+}
+
+@media (-webkit-min-device-pixel-ratio: 2),  (min-resolution: 192dpi) { 
+	body {
+		background: url(/img/shattered_@2X.png);
+	}
 }
 
 img {
@@ -28,54 +34,96 @@ li {
 /* Nav Bar Styles */
 
 .nav-bar {
-	height: 50px;
-	width: 1200px;
-	box-shadow: rgb(166, 166, 166) 0px 4px 3px 0px;
-	-webkit-box-shadow: rgb(166, 166, 166) 0px 4px 3px 0px;
-	-moz-box-shadow: rgb(166, 166, 166) 0px 4px 3px 0px;
+	margin: 0 auto;
+	padding-bottom: 4.16666666666%;
+	width: 100%;
 	background: rgb(255, 255, 255);
    	font-weight: 300;
-   	font-size: 2em;
-   	text-align: center;
-   	line-height: 50px;
+   	box-shadow: rgb(166, 166, 166) 0px 4px 3px 0px;
+	-webkit-box-shadow: rgb(166, 166, 166) 0px 4px 3px 0px;		
+	-moz-box-shadow: rgb(166, 166, 166) 0px 4px 3px 0px; 
+	font-size: 2em;
 }
 
 .nav-bar .logo {
+	display: inline-block;
 	background: url("/img/svg/spin-logo.svg") no-repeat;
-	background-size: 272.5px;
+	background-size: 93.80378657%;
 	background-position: center;
+	border-right: 1px solid rgb(218, 218, 218);
 	float: left;
-	height: inherit;
-	width: 290.5px;
+	padding-bottom:  4.16666666666%;
+	width: 24.20833333%;
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
 }
 
 .nav-bar .following-btn {
-	border-left: 2px solid rgb(218, 218, 218);
-	border-right: 2px solid rgb(218, 218, 218);
+	display: inline-block;
+	position: relative;
+	border-left: 1px solid rgb(218, 218, 218);
+	border-right: 1px solid rgb(218, 218, 218);
 	float: left;
-	height: inherit;
-	width: 120px;
+	padding-bottom: 4.16666666666%;
+	width: 10%;
+	box-sizing: border-box;
+   	-moz-box-sizing: border-box;
+  	-webkit-box-sizing: border-box;
+}
+
+.nav-bar .following-btn .following-btn-txt {
+	position: absolute;
+	left: 1%;
 }
 
 .nav-bar .blogs-btn {
+	display: inline-block;
+	position: relative;
+	border-left: 1px solid rgb(218, 218, 218);
 	border-right: 2px solid rgb(218, 218, 218);
 	float: left;
-	height: inherit;
-	width: 90px;
+	width: 7.5%;
+ 	padding-bottom: 4.16666666666%;
+	box-sizing: border-box;
+   	-moz-box-sizing: border-box;
+  	-webkit-box-sizing: border-box;	
+}
+
+.nav-bar .blogs-btn .blogs-btn-txt {
+	position: absolute;
 }
 
 .nav-bar .genres-btn {
+	display: inline-block;
+	position: relative;
 	border-right: 2px solid rgb(218, 218, 218);
 	float: left;
-	height: inherit;
-	width: 89px;
+	padding-bottom: 4.1666666666%;
+	width: 7.4166666666%;
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+}
+
+.nav-bar .genres-btn .genres-btn-txt {
+	position: absolute;
 }
 
 .nav-bar .popular-btn {
+	display: inline-block;
+	position: relative;
 	border-right: 2px solid rgb(218, 218, 218);
 	float: left;
-	height: inherit;
-	width: 98px;
+	padding-bottom: 4.16666666666%;
+	width: 8.166666666666%;
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+}
+
+.nav-bar .popular-btn .popular-btn-txt {
+	position: absolute;
 }
 
 .nav-bar .following-btn:hover, .nav-bar .blogs-btn:hover, .nav-bar .genres-btn:hover, .nav-bar .popular-btn:hover {
@@ -84,19 +132,23 @@ li {
 }
 
 .nav-bar .search-input {
+	display: inline-block;
+	position: relative;
 	float: left;
-	height: inherit;
-	width: 163px;
+	padding-bottom: 4.16666666666%;
+	width: 13.5833333333%;
 }
 
 .nav-bar .search-input input[type=text] {
+	position: absolute;
 	float: right;
+	right: 0;
 	width: 0px;
+	height: 100%;
 	background: rgb(218, 218, 218);
 	border: none;
 	margin: none;
 	padding: 0 0 0 0px;
-	height: 50px;
 	transition: width 1.5s;
 	-moz-transition: width 1.5s;
 	-webkit-transition: width 1.5s;
@@ -108,107 +160,127 @@ li {
 
 .nav-bar .search-btn {
 	background: url("/img/svg/search.svg") no-repeat;
-	background-size: auto 32px;
+	background-size: 64%;
 	background-position: center;
 	border-left: 2px solid rgb(218, 218, 218);
 	border-right: 2px solid rgb(218, 218, 218);
 	float: left;
-	height: inherit;
-	width: 53px;
+	padding-bottom: 4.1666666666%;
+	width: 4.41666666666%;
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
 }
 
 .nav-bar .search-btn:hover {
 	background: url("/img/svg/search-orange.svg") no-repeat;
-	background-size: auto 32px;
+	background-size: 64%;
 	background-position: center;
 }
 
 .nav-bar .nav-bar-ctrls {
+	position: relative;
 	float: left;
 	border-right: 2px solid rgb(218, 218, 218);
-	height: inherit;
-	width: 156px;
+	padding-bottom: 4.1666666666%;
+	width: 13%;
+	box-sizing: border-box;
+	-mox-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
 }
 
 .nav-bar .nav-bar-ctrls .rwd-btn {
+	position: absolute;
 	background: url("/img/svg/nav-bar-rwd.svg") no-repeat;
-	background-size: 36px;
+	background-size: 69.23076923%;
 	background-position: center;
 	float: left;
-	width: 52px;
-	height: 50px;
+	width: 33.33333333333%;
+	height: 100%;
 }
 
 .nav-bar .nav-bar-ctrls .rwd-btn:hover {
 	background: url("/img/svg/nav-bar-rwd-orange.svg") no-repeat;
-	background-size: 36px;
+	background-size: 69.23076923%;
 	background-position: center;
 	cursor: pointer;
 }
 
 .nav-bar .nav-bar-ctrls .play-btn {
+	position: absolute;
+	left: 33.33333333%;
 	background: url("/img/svg/nav-bar-play.svg") no-repeat;
-	background-size: 24px;
+	background-size: 46.15384615%;
 	background-position: center;
 	float: left;
-	width: 52px;
-	height: 50px;
+	width: 33.333333333333%;
+	height: 100%;
 }
 
 .nav-bar .nav-bar-ctrls .play-btn:hover {
 	background: url("/img/svg/nav-bar-play-orange.svg") no-repeat;
-	background-size: 24px;
+	background-size: 46.15384615%;
 	background-position: center;
 	cursor: pointer;
 }
 
 .nav-bar .nav-bar-ctrls .ffwd-btn {
+	position: absolute;
+	left: 66.6666666666%;
 	background: url("/img/svg/nav-bar-fwd.svg") no-repeat;
-	background-size: 36px;
+	background-size: 69.23076923%;
 	background-position: center;
 	float: left;
-	width: 52px;
-	height: 50px;
+	width: 33.333333333333%;
+	height: 100%;
 }
 
 .nav-bar .nav-bar-ctrls .ffwd-btn:hover {
 	background: url("/img/svg/nav-bar-fwd-orange.svg") no-repeat;
-	background-size: 36px;
+	background-size: 69.23076923%;
 	background-position: center;
 }
 
 .nav-bar .calendar-btn {
+	position: relative;
 	background: url("/img/svg/calendar.svg") no-repeat;
-	background-size: auto 34px;
+	background-size: auto 68%;
 	background-position: center;
 	float: left;
 	border-right: 2px solid rgb(218, 218, 218);
-	height: inherit;
-	width: 57px;
+	padding-bottom: 4.166666666%;
+	width: 5%;
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
 }
 
 .nav-bar .calendar-btn:hover {
 	background: url("/img/svg/calendar-orange.svg") no-repeat;
-	background-size: auto 34px;
+	background-size: auto 68%;
 	background-position: center;
 }
 
 .nav-bar .profile-btn {
 	background: url("/img/svg/profile-default.svg") no-repeat;
-	background-size: 34px;
+	background-size: 44.15584415%;
 	background-position: center;
 	float: left;
-	height: inherit;
-	width: 65px;
+	padding-bottom: 4.16666666666%;
+	width: 6.3776%;
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
 }
 
 .nav-bar .profile-btn:hover {
 	background: url("/img/svg/profile-default-orange.svg") no-repeat;
-	background-size: 34px;
+	background-size: 44.15574415%;
 	background-position: center;
 }
 
 .notification-circle {
+	position: absolute;
 	width: 12px;
 	height: 12px;
 	background: #fff;
@@ -239,7 +311,8 @@ li {
 /* Song Card Styles */
 
 .song-card-container {
-	width: 100%;
+	width: 1200px;
+	margin: 0 auto;
 }
 
 .song-card {
@@ -252,22 +325,6 @@ li {
 	-moz-border-radius: 6px;
 	-webkit-border-radius: 6px;
 	box-shadow: rgb(166, 166, 166) 4px 4px 3px 0px;
-}
-
-.song-card .card-buttons-top,
-.song-card .card-buttons-bot {
-	height: 20px;
-}
-
-
-.song-card .card-buttons-bot .sc-link {
-	float: left;
-	width: 30px;
-}
-
-.song-card .card-buttons-bot .song-respin {
-	float: right;
-	width: 20px;
 }
 
 .song-card .song-title {
@@ -326,13 +383,13 @@ li {
 	padding-left: 28px;
 	margin-left: 12px;
 	background: url(../img/svg/comment.svg) no-repeat left bottom;
-	background-size: 58.5% auto;
+	background-size: auto 70%;
 	line-height: 47px;
 }
 
 .song-card .buttons .comment-btn:hover {
 	background: url(../img/svg/comment-orange.svg) no-repeat left bottom;
-	background-size: 58.5% auto;
+	background-size: auto 70%;
 	cursor: pointer;
 }
 
@@ -356,14 +413,15 @@ li {
 .song-artwork {
 	width: 95%;
 	height: auto;
-	margin: 5px auto;i
+	margin: 5px auto;
+	text-align: center;
 }
 
 .song-artwork .card-play-pause {
 	display: none;
 	position: absolute;
 	top: 55%;
-	left: 40%;
+	left: 31%;
 	width: 40%;	
 	height: auto;
 	z-index = 1;
@@ -376,14 +434,21 @@ li {
 
 /* Profile Nav Styles */
 
+.profile-nav-container {
+	width: 100%;
+	background: #fff;
+	border-top: 2px solid rgb(218, 218, 218);
+	box-shadow: rgb(166, 166, 166) 0px 4px 3px 0px; 
+	-moz-box-shadow: rgb(166, 166, 166) 0px 4px 3px 0px;
+	-webkit-box-shadow: rgb(166, 166, 166) 0px 4px 3px 0px;	
+}
+
 .profile-nav {
 	width: 1200px;
 	height: 75px;
 	background: #fff;
 	text-align: center;
-	box-shadow: rgb(166, 166, 166) 0px 4px 3px 0px; 
-	-moz-box-shadow: rgb(166, 166, 166) 0px 4px 3px 0px;
-	-webkit-box-shadow: rgb(166, 166, 166) 0px 4px 3px 0px;
+	margin: 0 auto;
 }
 
 .profile-nav .user-info {
@@ -474,4 +539,30 @@ li {
 	color: #fff;
 	padding-top: 3px;
 	font-size: 1.5em;
+}
+
+/* Isotope Animations */
+.isotope,
+.isotope .isotope-item {
+  -webkit-transition-duration: 2s;
+     -moz-transition-duration: 2s;
+      -ms-transition-duration: 2s;
+       -o-transition-duration: 2s;
+          transition-duration: 2s;
+}
+
+.isotope {
+  -webkit-transition-property: height, width;
+     -moz-transition-property: height, width;
+      -ms-transition-property: height, width;
+       -o-transition-property: height, width;
+          transition-property: height, width;
+}
+
+.isotope .isotope-item {
+  -webkit-transition-property: -webkit-transform, opacity;
+     -moz-transition-property:    -moz-transform, opacity;
+      -ms-transition-property:     -ms-transform, opacity;
+       -o-transition-property:      -o-transform, opacity;
+          transition-property:         transform, opacity;
 }

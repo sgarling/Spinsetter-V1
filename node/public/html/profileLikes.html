@@ -1,7 +1,7 @@
 <br />
 <div ng-controller="LikesCtrl">
-	<div class="song-card-container" ui:sortable="sortableOptions" ng-model="profile.likedTracks">
-		<div class="song-card" ng-repeat="track in profile.likedTracks">
+	<div class="song-card-container" ss-iso-grid ng-model="profile.likedTracks">
+		<div class="song-card" ng-repeat="track in profile.likedTracks" ss-iso-item>
 			<div class="song-title">{{track.title}}</div>
 			<div class="song-artist">{{track.user.username}}</div>
 			<div class="buttons">

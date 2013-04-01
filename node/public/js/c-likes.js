@@ -10,7 +10,7 @@ myModule.controller('LikesCtrl', ['$scope', 'profileInfo', 'playerService', 'log
 
 	$scope.playFromCard = function(track)
 	{
-		var trackIDs = _.pluck($scope.profile.likedTracks, 'id');
+		var trackIDs = _.pluck(playerService.getTrackList(), 'id');
 		var trackIndex = _.indexOf(trackIDs, track.id);
 		var oldTrack = playerService.getCurrentTrack();
 		if (track !== oldTrack && oldTrack !== null) { oldTrack.playIconState = "play"; }

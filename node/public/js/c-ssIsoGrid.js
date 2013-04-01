@@ -10,6 +10,6 @@ myModule.directive('ssIsoGrid', function() {
 			}
 		});
 
-		$elem.isotope({ sortBy: 'title' });
+//		$elem.isotope({ sortBy: 'title' });
 	};
 }); 

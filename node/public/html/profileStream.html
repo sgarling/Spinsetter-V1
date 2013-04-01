@@ -1,6 +1,6 @@
 <br />
 <div ng-controller="StreamCtrl">
-	<div class="song-card-container" ss-iso-grid ui:sortable="sortableOptions" ng-model="profile.streamTracks">
+	<div class="song-card-container" ss-iso-grid ng-model="profile.streamTracks">
 		<div class="song-card" ng-repeat="track in profile.streamTracks" ss-iso-item>
 			<div class="song-title">{{track.title}}</div>
 			<div class="song-artist">{{track.user.username}}</div>
@@ -14,6 +14,6 @@
 				<img ng-src="{{track.artwork_url}}">
 				<div class="card-play-pause"><img ng-src="../img/card-{{track.playIconState}}-icon.png" /></div>
 			</div>
-		</li>
-	</ul>
+		</div>
+	</div>
 </div>

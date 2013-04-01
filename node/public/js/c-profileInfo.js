@@ -29,10 +29,11 @@ myModule.factory('profileInfo', function($rootScope)
                     if (track.title != null)
                     {
                         track.playIconState = "play";
-			track.artwork_url = getEnlargedArtwork(track.artwork_url);
                         if (track.artwork_url == null)
 			{ 
 				track.artwork_url = "../img/default-player-artwork.png"; 
+			} else {
+				track.artwork_url = getEnlargedArtwork(track.artwork_url);
 			} 
                         _.each(profiles, function(profile)
                         {
@@ -49,7 +50,12 @@ myModule.factory('profileInfo', function($rootScope)
                         _.each(playlist.tracks, function(track)
                         {
                             track.playIconState = "play";
-                            if (track.artwork_url == null) { track.artwork_url="../img/default-player-artwork.png"; }
+                            if (track.artwork_url == null)
+			    {
+				track.artwork_url = "../img/default-player-artwork.png"; 
+			    } else {
+				track.artwork_url = getEnlargedArtwork(track.artwork_url);
+			    }
                             _.each(profiles, function(profile)
                             {
                                 var trackIDs = _.pluck(profile.streamTracks, 'id');

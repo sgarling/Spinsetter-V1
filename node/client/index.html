@@ -21,6 +21,7 @@
     <script type="text/javascript" src="js/c-stream.js"></script>
     <script type="text/javascript" src="js/c-likes.js"></script>
     <script type="text/javascript" src="js/c-nav.js"></script>
+    <script type="text/javascript" src="js/c-createAccount.js"></script>
     <script type="text/javascript" src="js/c-ssIsoGrid.js"></script>
     <script type="text/javascript" src="js/c-ssIsoItem.js"></script>
     <link rel="stylesheet" href="css/style.css">
@@ -29,40 +30,29 @@
   <body>
     <div class="container">
       <div class="nav-bar" ng-controller="NavCtrl">
-        <div class="logo"></div>
-        <div class="following-btn">Following</div>
-        <div class="blogs-btn">Blogs</div>
-        <div class="genres-btn">Genres</div>
-        <div class="popular-btn">Popular</div>
-        <div class="search-input" ng-mouseenter="showSearch()" ng-mouseleave="hideSearch()"><input type="text" placeholder="Search" ng-model="searchInput"></div>
-        <div class="search-btn" ng-mouseenter="showSearch()" ng-mouseleave="hideSearch()"></div>
-        <div class="nav-bar-ctrls" ng-controller="PlayerCtrl">
-          <div class="rwd-btn" ng-click="skipBack()"></div>
-          <div class="play-btn" ng-click="play()"></div>
-          <div class="ffwd-btn" ng-click="skipFwd()"></div>
-        </div>
-        <div class="calendar-btn">
-          <div class="notification-circle calendar"><p>3</p></div>
-        </div>
-        <div class="profile-btn">
-          <div class="notification-circle profile"><p>4</p></div>
-        </div>
+	<div class="logo"></div>
+	<div class="following-btn"><div class="following-btn-txt">Following</div></div>
+	<div class="blogs-btn"><div class="blogs-btn-txt">Blogs</div></div>
+	<div class="genres-btn"><div class="genres-btn-txt">Genres</div></div>
+	<div class="popular-btn"><div class="popular-btn-txt">Popular</div></div>
+	<div class="search-input" ng-mouseenter="showSearch()" ng-mouseleave="hideSearch()"><input type="text" placeholder="Search" ng-model="searchInput"></div>
+	<div class="search-btn" ng-mouseenter="showSearch()" ng-mouseleave="hideSearch()"></div>
+	<div class="nav-bar-ctrls" ng-controller="PlayerCtrl">
+	  <div class="rwd-btn" ng-click="skipBack()"></div>
+	  <div class="play-btn" ng-click="play()"></div>
+	  <div class="ffwd-btn" ng-click="skipFwd()"></div>
+	</div>
+	<div class="calendar-btn">
+	  <div class="notification-circle calendar"><p>3</p></div>
+	</div>
+	<div class="profile-btn" ng-click="goToCreateAccountPage()">
+	  <div class="notification-circle profile"><p>4</p></div>
+	</div>
       </div>
       <div class="clear"></div>
-    
-      <br />
-
       <div ng-controller="PageViewCtrl">
-        <hr />
-        <h4>Pages:</h3>
-        <div class="homepage"><a href="/">Home</a></div>
-        <div ng-repeat="profile in profiles">
-          <a ng-href="/profile/{{profile.username}}">{{profile.username}}</a>
-        </div>
-        <hr />
-        <div ng-view></div>
+	        <div ng-view></div>
       </div>
     </div>
   </body>
-  
 </html>

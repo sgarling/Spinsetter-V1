@@ -1,4 +1,4 @@
-myModule.directive('ssIsoItem', function(playerService) {
+myModule.directive('ssIsoItem', function(playerService, $timeout) {
 	
 	function extractPosition (transformString) {
       		var re1='.*?';	// Non-greedy match on filler
@@ -17,7 +17,7 @@ myModule.directive('ssIsoItem', function(playerService) {
       		var re14='(\\d+)';	// Integer Number 1
       		var re15='.*?';	// Non-greedy match on filler
       		var re16='(\\d+)';	// Integer Number 2
-
+		//Regex to pull top and left values of the div out of the transform matrix
       		var p = new RegExp(re1+re2+re3+re4+re5+re6+re7+re8+re9+re10+re11+re12+re13+re14+re15+re16,["i"]);
       		var m = p.exec(transformString);
 		var position = {};
@@ -31,7 +31,7 @@ myModule.directive('ssIsoItem', function(playerService) {
 	}
 	
 	function sortByPosition(a, b) {
-		if (Math.abs(a.domPosition.top - b.domPosition.top) < 100) {
+		if (Math.abs(a.domPosition.top - b.domPosition.top) < 400) {
 			return a.domPosition.left - b.domPosition.left;
 		}
 		return a.domPosition.top - b.domPosition.top;
