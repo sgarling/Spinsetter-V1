@@ -32,6 +32,12 @@ li {
 }
 
 /* Nav Bar Styles */
+.nav-container {
+    width: 100%;
+    height: auto;
+    position: fixed;
+    z-index: 3;
+}
 
 .nav-bar {
 	margin: 0 auto;
@@ -307,7 +313,9 @@ li {
 	color: rgb(38, 48, 56);
 }
 
-
+.content-container {
+    padding-top: 57px;
+}
 /* Song Card Styles */
 
 .song-card-container {
@@ -455,7 +463,7 @@ li {
 	float: left;
 	width: 282.5px;
 	height: inherit;
-	background: url("/img/svg/profile-default.svg") no-repeat;;
+	background: url("/img/svg/profile-default.svg") no-repeat;
 	background-position: 5px 50%;
 	text-align: left;
 }
@@ -481,7 +489,6 @@ li {
 	float: left;
 	height: inherit;
 	width: 76px;
-	border-right: 2px solidi black;
 }
 
 .profile-nav .stream-control .likes {
