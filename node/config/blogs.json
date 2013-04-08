@@ -1,0 +1,26 @@
+[
+    {
+        "name": "Abeano",
+        "website": "http://www.abeano.com/",
+        "url": "http://feeds.feedburner.com/Abeano",
+        "notes": ""
+    },
+    {
+        "name": "Earmilk",
+        "website": "http://www.earmilk.com/",
+        "url": "http://feeds.feedburner.com/earmilk",
+        "notes": ""
+    },
+    {
+        "name": "FACT Magazine: Music News, New Music.",
+        "website": "http://www.factmag.com/",
+        "url": "http://feeds.feedburner.com/FactMagazineMusicAndArt",
+        "notes": ""
+    },
+    {
+        "name": "Chemical Jump",
+        "website": "http://chemicaljump.com/",
+        "url": "http://feeds.feedburner.com/ChemicalJump",
+        "notes": ""
+    }
+]
