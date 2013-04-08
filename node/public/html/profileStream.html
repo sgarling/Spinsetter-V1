@@ -3,8 +3,10 @@
 	<div class="song-card-container" ng-model="profile.streamTracks">
 		<div class="song-card" ng-repeat="track in profile.streamTracks" ss-iso-item-two>
 			<div class="song-title">{{track.title}}</div>
-			<div class="song-artist">{{track.user.username}}</div>
-			<div class="buttons">
+			<div class="card-prof-pic"></div>
+            <div class="song-artist">{{track.user.username}}</div>
+            <div class="clear"></div>
+            <div class="buttons">
 				<div class="listens">2340</div>
 				<div class="like-btn" ng-click="like(track)">0</div>
 				<div class="comment-btn">2</div>	

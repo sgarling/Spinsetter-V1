@@ -16,12 +16,16 @@ myModule.factory('playerService', function($rootScope)
   $(document).on('click', '.song-progress-wrapper', function(e)
   {
     var pos = e.pageX - $(this).offset().left;
+    $('.song-progress').css('left', pos);
     var relPos = currentSound.duration*pos;
-    var newPos = relPos/200;
+    var newPos = relPos/$(this).width();
     currentSound.setPosition(newPos);
   });
 
-
+  
+  function setSongPos(pos) {
+    console.log(pos);
+  }
   //init variables for the playerService
   $rootScope.currentPos = 0;
 
@@ -82,8 +86,9 @@ myModule.factory('playerService', function($rootScope)
             whileplaying: function()
             {
               $rootScope.safeApply(function() {
-                $rootScope.currentPos = (audio.position / audio.duration) * 200;
-                if ($rootScope.currentPos == 200) { $rootScope.$broadcast('trackFinished'); }
+                $rootScope.currentPos = (audio.position / audio.duration) * $('.song-progress-wrapper').width();
+                $('.song-progress').css('left', '' + $rootScope.currentPos + 'px'); 
+                if ($rootScope.currentPos == $('.song-progress-wrapper').width()) { $rootScope.$broadcast('trackFinished'); }
               });
             }
           });
@@ -145,8 +150,9 @@ myModule.factory('playerService', function($rootScope)
             {
               $rootScope.safeApply(function()
               {
-                $rootScope.currentPos = (audio.position / audio.duration) * 200;
-                if ($rootScope.currentPos == 200) { $rootScope.$broadcast('trackFinished'); }
+                $rootScope.currentPos = (audio.position / audio.duration) * $('.song-progress-wrapper').width();
+                $('.song-progress').css('left', '' + $rootScope.currentPos + 'px');
+                if ($rootScope.currentPos == $('.song-progress-wrapper').width()) { $rootScope.$broadcast('trackFinished'); }
               });
             }
            });

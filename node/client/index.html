@@ -43,6 +43,17 @@
                     <div class="rwd-btn" ng-click="skipBack()"></div>
                     <div class="play-btn" ng-click="play()"></div>
                     <div class="ffwd-btn" ng-click="skipFwd()"></div>
+                    <div class="dropdown-ctrls">
+                        <div class="song-title">
+                            <marquee behavior="scroll" direction="left" scrollAmount="2">{{currentTrack.user.username + ' - ' + currentTrack.title}}</marquee></div>
+                        <div class="progress-section">
+                            <div class="song-progress-wrapper">
+                                <div class="progress-bar"></div>
+                                <div class="song-progress"></div>
+                            </div>
+                        </div>
+                        <div class="like-btn" ng-click="like()"></div>
+                    </div>
                 </div>
                 <div class="calendar-btn">
                     <div class="notification-circle calendar"><p>3</p></div>

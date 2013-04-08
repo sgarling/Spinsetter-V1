@@ -58,5 +58,9 @@ myModule.run(function($rootScope, $window)
 		centerText($('.blogs-btn-txt'), $('.blogs-btn'));
 		centerText($('.genres-btn-txt'), $('.blogs-btn'));
 		centerText($('.popular-btn-txt'), $('.blogs-btn'));
+        var navBarHeight = $('.nav-bar').css('padding-bottom');
+        console.log(navBarHeight + "woo!");
+        $('.nav-bar').css('width', '100%');
+        $('.dropdown-ctrls').css('top', parseInt(navBarHeight));
 	});
 });

@@ -6,6 +6,10 @@ body {
 	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
 }
 
+.clear {
+    clear: both;
+}
+
 @media (-webkit-min-device-pixel-ratio: 2),  (min-resolution: 192dpi) { 
 	body {
 		background: url(/img/shattered_@2X.png);
@@ -247,6 +251,86 @@ li {
 	background-position: center;
 }
 
+.nav-bar .dropdown-ctrls {
+    display: none;
+    height: 40px;
+    width: 303%;
+    position: absolute;
+    top: 50px;
+    left: -204.1%;
+    background: #fff;
+    border: 2px solid rgb(218, 218, 218);
+    border-bottom: none;
+    box-shadow: rgb(166, 166, 166) 0px 4px 3px 0px;
+	-webkit-box-shadow: rgb(166, 166, 166) 0px 4px 3px 0px;		
+	-moz-box-shadow: rgb(166, 166, 166) 0px 4px 3px 0px; 
+}
+
+
+.nav-bar .nav-bar-ctrls:hover .dropdown-ctrls {
+    display: block;
+}
+
+.nav-bar .dropdown-ctrls .song-title {
+    float: left;
+    width: 33.3333333333333333333333%;
+    height: inherit;
+    line-height: 40px;
+    overflow: hidden;
+    white-space: nowrap;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    border-right: 2px solid rgb(218, 218, 218);
+}
+
+.nav-bar .dropdown-ctrls .progress-section {
+    float: left;
+    width: 59.366666666666666%;
+    height: inherit;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    border-right: 2px solid rgb(218, 218, 218);
+}
+
+.progress-section .song-progress-wrapper {
+    float: left;
+    position: relative;
+    margin-left: 5%;
+    width: 90%;
+    height: inherit;
+}
+
+.song-progress-wrapper .progress-bar {
+    position: absolute;
+    height: 4px;
+    width: 100%;
+    background: rgb(218, 218, 218);
+    margin-top: 18px;
+}
+
+.song-progress-wrapper .song-progress {
+    position: absolute;
+    width: 10px;
+    height: 30px;
+    margin-top: 5px;
+    background: rgb(188, 58, 39);
+}
+
+.nav-bar .dropdown-ctrls .like-btn {
+    float: left;
+    width: 7.3%;
+    height: inherit;
+    background: url(../img/svg/like.svg) no-repeat center;
+	background-size: 60%;
+}
+
+.nav-bar .dropdown-ctrls .like-btn:hover {
+    background: url(../img/svg/like-orange.svg) no-repeat center;
+	background-size: 60%;
+}
+
 .nav-bar .calendar-btn {
 	position: relative;
 	background: url("/img/svg/calendar.svg") no-repeat;
@@ -336,16 +420,28 @@ li {
 }
 
 .song-card .song-title {
+    float: left;
 	font-size: 1.25em;
 	font-weight: bold;
-	padding: 4px 0 0 4px;
+	padding: 5px 0 0 2.5%;
 	width: 70%;
 	overflow: hidden;
 }
 
 .song-card .song-artist {
+    float: left;
+    width: 70%;
 	font-size: 1.2em;
-	padding: 2px 0 0 4px;
+	padding: 5px 0 0 2.5%;
+}
+
+.song-card .card-prof-pic {
+    margin: 5px 2.5% 0 0;
+    float: right;
+    height: 40px;
+    width: 14.7%;
+    background: url("/img/svg/profile-default.svg") no-repeat center;
+    background-size: auto 100%
 }
 
 .song-card .buttons {

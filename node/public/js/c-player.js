@@ -2,48 +2,53 @@
  * soundcloud/angular disagreement, and the whole page would run a lot more smoothly
  */
 
-myModule.controller('PlayerCtrl', ['$scope', 'profileInfo', 'playerService', function($scope, profileInfo, playerService, socket)
-{
-   //Initialize $scope.currentTrack so the player has a default image when the page loads
-  $scope.currentTrack = { artwork_url: '../img/default-player-artwork.png' };
+myModule.controller('PlayerCtrl', ['$scope', 'profileInfo', 'playerService', 'loggedUserService', function($scope, profileInfo, playerService, loggedUserService)
+{ 
+    //Initialize $scope.currentTrack so the player has a default image when the page loads
+    $scope.currentTrack = { artwork_url: '../img/default-player-artwork.png' };
 
-  /*
-   * ng-click Player Control functions
-   *-----------------------------------
-   * These functions are wrapper functions that call their corresponding
-   * function in the playerService service. They allow for the player to control
-   * music flow.
-   */
-  $scope.play = function()
-  {
-    playerService.playFromPlayer();
-  };
+    /*
+    * ng-click Player Control functions
+    *-----------------------------------
+    * These functions are wrapper functions that call their corresponding
+    * function in the playerService service. They allow for the player to control
+    * music flow.
+    */
+    $scope.play = function()
+    {
+        playerService.playFromPlayer();
+    };
+    
+    $scope.pause = function()
+    {
+        playerService.pause();
+    };
 
-  $scope.pause = function()
-  {
-    playerService.pause();
-  };
+    $scope.ffwd = function()
+    {
+        playerService.ffwd();
+    };
 
-  $scope.ffwd = function()
-  {
-    playerService.ffwd();
-  };
+    $scope.rewind = function()
+    {
+        playerService.rewind();
+    };
 
-  $scope.rewind = function()
-  {
-    playerService.rewind();
-  };
+    $scope.skipFwd = function()
+    {
+        playerService.skipFwd();
+    };
 
-  $scope.skipFwd = function()
-  {
-    playerService.skipFwd();
-  };
+    $scope.skipBack = function()
+    {
+        playerService.skipBack();
+    };
 
-  $scope.skipBack = function()
-  {
-    playerService.skipBack();
-  };
-
+    $scope.like = function() {
+        if ($scope.currentTrack.title !== null) {
+            profileInfo.likeTrack(loggedUserService.getUsername(), $scope.currentTrack);
+        }
+    };
 
   //Event logic
 
@@ -69,7 +74,7 @@ myModule.controller('PlayerCtrl', ['$scope', 'profileInfo', 'playerService', fun
     console.log("track finished!");
     playerService.skipFwd();
   });
-
+    
   var keys = {};
   //Key Bindings
   $(document).keydown(function(e)
