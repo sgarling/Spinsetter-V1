@@ -1,6 +1,7 @@
 myModule.controller('StreamCtrl', ['$scope', '$timeout', 'profileInfo', 'playerService', 'loggedUserService', function($scope, $timeout, profileInfo, playerService, loggedUserService)
 {
-	
+	$scope.trackToAdd = null;
+    
 	playerService.setTrackList($scope.profile.streamTracks);
 	
 	//observe for drag n drop sortable	
@@ -29,6 +30,19 @@ myModule.controller('StreamCtrl', ['$scope', '$timeout', 'profileInfo', 'playerS
 		var trackIndex = _.indexOf(trackIDs, track.id);
 		$scope.profile.streamTracks.splice(trackIndex, 1);
  	};
-	
 
+    $scope.playlistDialogActive = false;
+
+    $scope.openPlaylistDialog = function(track) {
+        $scope.playlistDialogActive = true;
+        $scope.trackToAdd = track;
+    };
+
+    $scope.closePlaylistDialog = function() {
+        $scope.playlistDialogActive = false;
+    };
+    
+    $scope.$on('trackAddedToPlaylist', function() {
+        $scope.playlistDialogActive = false;
+    });
 }]);

@@ -7,7 +7,7 @@ myModule.factory('profileInfo', function($rootScope)
 
     // static profiles
     var profiles = [
-        {username: "Danny", tracksInfo: [74494996, 294, 75868018, 74421378], streamTracks: [], likedTracks: [], playlists: [], location: "Palo Alto, CA" },
+        {username: "Danny", tracksInfo: [74494996, 294, 75868018, 74421378], streamTracks: [], likedTracks: [], playlists: [{ name: 'test playlist', tracks: [] }], location: "Palo Alto, CA" },
         {username: "Josh", tracksInfo: [75237140, 74913382, 74432728], streamTracks: [], likedTracks: [], playlists: [], location: "Palo Alto, CA" },
         {username: "Samora", tracksInfo:[74494996, 294, 75868018, 74421378, 75237140, 74913382, 74432728], streamTracks: [], likedTracks: [], playlists: [], location: "Palo Alto, CA" } ];
 
@@ -159,11 +159,29 @@ myModule.factory('profileInfo', function($rootScope)
             var index = 0;
             for (var i = 0; i < profiles.length; i++)
             {
-                if (profiles[i].username == username) { index = i; }
+                if (profiles[i].username === username) { index = i; }
             }
             //var trackInfo = { resource: "tracks", id: trackID };
             //profiles[index].tracksInfo.push(trackInfo);
             profiles[index].streamTracks.push(track);
+        },
+
+        addTrackToPlaylist: function(username, track, playlist, isNew)
+        {
+            if (!isNew) {
+                _.each(profiles, function(profile)
+                {
+                    if (profile.username === username)
+                    {
+                        _.each(profile.playlists, function(iPlaylist) {
+                            if (iPlaylist.name === playlist.name)
+                            {
+                                playlist.tracks.push(track);
+                            }
+                        });
+                    }
+                });   
+            }
         },
 
         likeTrack: function(username, track)

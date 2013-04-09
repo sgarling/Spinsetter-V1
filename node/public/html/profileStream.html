@@ -10,7 +10,7 @@
 				<div class="listens">2340</div>
 				<div class="like-btn" ng-click="like(track)">0</div>
 				<div class="comment-btn">2</div>	
-				<div class="respin-btn" ng-click="reSpin(track)"></div>
+				<div class="respin-btn" ng-click="openPlaylistDialog(track)"></div>
 			</div>
 			<div class="song-artwork" ng-click="playFromCard(track)">
 				<img ng-src="{{track.artwork_url}}">
@@ -18,4 +18,20 @@
 			</div>
 		</div>
 	</div>
+    <div class="dialog" ng-show="playlistDialogActive">
+        <div class="dialog-mask" ng-click="closePlaylistDialog()"></div>
+        <div class="playlisting-dialog-container">
+            <div class="playlisting-dialog">
+                <div class="playlisting-header">Add to Playlist</div>
+                <div class="playlisting-artwork">
+                    <img ng-src="{{trackToAdd.artwork_url}}">
+                </div>
+                <div class="playlist-chooser">
+                    <span>Playlist:</span>
+                    <select ng-model="playlist" ng-options="p.name for p in getPlaylists()"></select>
+                    <div class="add-to-playlist-btn" ng-click="addToPlaylist(trackToAdd, playlist)">Add</div> 
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
