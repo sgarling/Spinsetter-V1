@@ -15,10 +15,15 @@ var parseTrackID = /\/([0-9]+)/;
 var parseTrackInfo = /\/([a-z]+)\/([0-9]+)/;
 
 // Add track to db
-function addTrack (trackInfo)
+function addTrack (trackInfo, article)
 {
-    var track = { resource: trackInfo[1], id: trackInfo[2] };
-    console.log('Adding track to database' + trackInfo[1] + " " + trackInfo[2]);
+    var track =
+        { resource: trackInfo[1],
+            id: trackInfo[2],
+            source: 'soundcloud',
+            article: article
+        };
+    console.log('Adding track to database ' + trackInfo[1] + " " + trackInfo[2]);
     db.save('tracks', track.id, track);
 }
 
@@ -52,7 +57,7 @@ function processFeed (article)
             return;
 
         // Add track
-        addTrack(trackInfo);
+        addTrack(trackInfo, article);
       }
     });
 }

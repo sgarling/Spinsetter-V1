@@ -19,13 +19,13 @@ app.configure(function()
 // Views
 app.get('/', function (req, res)
     {
-        res.sendfile(__dirname + '/client/index.html');
+        res.sendfile(__dirname + '/public/html/index.html');
     });
 
-app.get('/profile/:name', function(req, res) 
-	{
-	res.sendfile(__dirname + '/public/html/profile.html');
-	});
+app.get('/profile/:name', function(req, res)
+    {
+        res.sendfile(__dirname + '/public/html/profile.html');
+    });
 
 
 // Server

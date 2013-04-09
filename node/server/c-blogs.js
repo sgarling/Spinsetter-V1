@@ -7,8 +7,14 @@ exports.registerFeedListener = function (db, io)
         {
             if(err) throw err;
             var trackList = new Array();
-            tracks.forEach(function (track, i, arr)
+            tracks.forEach(function (trackObj, i, arr)
                {
+                    var track =
+                        {
+                            'id': trackObj.id,
+                            'resource': trackObj.resource,
+                            'source': trackObj.source
+                        }
                     trackList.push(track);
                }
             );
