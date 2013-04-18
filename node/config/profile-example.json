@@ -1,0 +1,18 @@
+{
+    "username": "jmvldz",
+    "realName": "Joshua Valdez",
+    "password": "asdfalkjaldk321",
+    "email": "josh@jmvldz.com",
+    "age": "22",
+    "sex": "male",
+    "profilePictureUrl": "https://jmvldz.com/static/img/logo.png",
+    "followers": 
+        ["dannyrdalton", "smgarling"],
+    "following":
+        ["dannyrdalton", "smgarling"],
+    "location": "75028",
+    "likes":
+        ["123456", "234567"],
+    "notifications":
+        ["59203ad", "3j2k34u9"]
+}

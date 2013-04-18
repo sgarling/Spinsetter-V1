@@ -1,26 +1,38 @@
 [
     {
-        "name": "Abeano",
-        "website": "http://www.abeano.com/",
-        "url": "http://feeds.feedburner.com/Abeano",
-        "notes": ""
-    },
-    {
         "name": "Earmilk",
         "website": "http://www.earmilk.com/",
         "url": "http://feeds.feedburner.com/earmilk",
         "notes": ""
     },
     {
-        "name": "FACT Magazine: Music News, New Music.",
-        "website": "http://www.factmag.com/",
-        "url": "http://feeds.feedburner.com/FactMagazineMusicAndArt",
+        "name": "Pitchfork",
+        "website": "http://pitchfork.com/",
+        "url": "http://pitchfork.com/rss/reviews/tracks/",
         "notes": ""
     },
     {
-        "name": "Chemical Jump",
-        "website": "http://chemicaljump.com/",
-        "url": "http://feeds.feedburner.com/ChemicalJump",
+        "name": "Pitchfork Best",
+        "website": "http://pitchfork.com/",
+        "url": "http://pitchfork.com/rss/reviews/best/tracks",
+        "notes": ""
+    },
+    {
+        "name": "Pretty Much Amazing",
+        "website": "http://prettymuchamazing.com/",
+        "url": "http://feeds.feedburner.com/prettymuchamazing",
+        "notes": ""
+    },
+    {
+        "name": "Disco Naivete",
+        "website": "http://disconaivete.com/",
+        "url": "http://disconaivete.com/rss",
+        "notes": ""
+    },
+    {
+        "name": "ThisSongIsSick",
+        "website": "http://thissongissick.com/blog/",
+        "url": "http://feeds.feedburner.com/thissongissick",
         "notes": ""
     }
 ]
